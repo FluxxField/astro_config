@@ -16,16 +16,13 @@ return {
       --   ["remote3"] = "github_user", -- GitHub user assume AstroNvim fork
     },
   },
-
   -- Set colorscheme to use
   colorscheme = "astrodark",
-
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
     virtual_text = true,
     underline = true,
   },
-
   lsp = {
     -- customize lsp formatting options
     formatting = {
@@ -52,7 +49,6 @@ return {
       -- "pyright"
     },
   },
-
   -- Configure require("lazy").setup() options
   lazy = {
     defaults = { lazy = true },
@@ -63,7 +59,6 @@ return {
       },
     },
   },
-
   -- This function is run last and is a good place to configuring
   -- augroups/autocommands and custom filetypes also this just pure lua so
   -- anything that doesn't fit in the normal config locations above can go here
@@ -80,5 +75,18 @@ return {
     --     ["~/%.config/foo/.*"] = "fooscript",
     --   },
     -- }
+
+    vim.api.nvim_create_autocmd("LspAttach", {
+      callback = function(args)
+        -- Disable diagnostics for tsserver because of eslint_d conflicts
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+        if client.name == "tsserver" then
+          local ns = vim.lsp.diagnostic.get_namespace(args.data.client_id)
+
+          vim.diagnostic.disable(nil, ns)
+        end
+      end,
+    })
   end,
 }
