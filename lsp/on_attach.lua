@@ -3,10 +3,6 @@ return function(client, bufnr)
 
   client.config.flags = { debounce_text_changes = 150 }
 
-  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-    update_in_insert = false,
-  })
-
   vim.keymap.set("n", "<leader>lt", function()
     if diagnostics_active then
       vim.diagnostic.hide()
