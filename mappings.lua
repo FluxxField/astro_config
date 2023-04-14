@@ -36,14 +36,19 @@ return {
       function() require("astronvim.utils.buffer").nav(-(vim.v.count > 0 and vim.v.vount or 1)) end,
       desc = "Previous buffer",
     },
-    -- Diagnostic navigation
-    -- ["]d"] = false,
-    -- ["[d"] = false,
-    -- ["<leader>ne"] = { "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>", desc = "Next diagnostic" },
-    -- ["<leader>pe"] = { "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", desc = "Previous diagnostic" },
+    ["<leader>o"] = { "o<Esc>" },
+    ["<leader>O"] = { "O<Esc>" },
+    ["<leader>z"] = { "<cmd>ZenMode<cr>", desc = "Zen Mode" },
+    ["<esc>"] = false,
   },
   t = {
     -- setting a mapping to false will disable it
     ["<esc>"] = false,
+  },
+  v = {
+    ["J"] = { ":m '>+1<CR>gv=gv", desc = "Move line down" },
+    ["K"] = { ":m '<-2<CR>gv=gv", desc = "Move line up" },
+    ["<"] = { "<gv", desc = "Shift left" },
+    [">"] = { ">gv", desc = "Shift right" },
   },
 }
