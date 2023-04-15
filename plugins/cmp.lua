@@ -8,18 +8,13 @@ return {
     "hrsh7th/cmp-calc",
     "hrsh7th/cmp-emoji",
     "hrsh7th/cmp-vsnip",
-    "L3MON4D3/LuaSnip",
   },
   opts = function(_, opts)
     local cmp = require "cmp"
-    local luasnip = require "luasnip"
 
     return require("astronvim.utils").extend_tbl(opts, {
       snippet = {
-        expand = function(args)
-          if luasnip then luasnip.lsp_expand(args.body) end
-          vim.fn["vsnip#anonymous"](args.body)
-        end,
+        expand = function(args) vim.fn["vsnip#anonymous"](args.body) end,
       },
       window = {
         completion = {
@@ -37,7 +32,6 @@ return {
         { name = "emoji" },
         { name = "vsnip" },
         { name = "nvim_lsp" },
-        { name = "luasnip" },
       },
     })
   end,
