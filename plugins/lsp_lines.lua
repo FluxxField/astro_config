@@ -1,7 +1,9 @@
 return {
   "Maan2003/lsp_lines.nvim",
-  event = "BufReadPre",
-  opts = {
-    virtual_text = false,
-  },
+  lazy = true,
+  event = "User AstroFile",
+  cmd = {},
+  dependencies = {},
+  opts = {},
+  keys = {},
 }
