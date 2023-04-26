@@ -7,6 +7,7 @@ local astro_utils = require "astronvim.utils"
 -- automatically pick-up stored data by this setting.)
 return {
   n = {
+    ["<leader>b"] = { name = "Buffers" },
     ["<leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
     ["<leader>bD"] = {
       function()
@@ -16,7 +17,6 @@ return {
       end,
       desc = "Pick to close",
     },
-    ["<leader>b"] = { name = "Buffers" },
     -- Buffer switching
     ["<Tab>"] = {
       function()
@@ -28,21 +28,62 @@ return {
       end,
       desc = "Switch Buffers",
     },
-    ["<S-l>"] = {
-      function() require("astronvim.utils.buffer").nav(vim.v.count > 0 and vim.v.vount or 1) end,
-      desc = "Previous buffer",
-    },
-    ["<S-h>"] = {
-      function() require("astronvim.utils.buffer").nav(-(vim.v.count > 0 and vim.v.vount or 1)) end,
-      desc = "Previous buffer",
-    },
-    ["<leader>o"] = { "o<Esc>" },
-    ["<leader>O"] = { "O<Esc>" },
+    -- telescope
+    ["<leader>fq"] = { "<cmd>Telescope quickfix<cr>", desc = "Find quickfix" },
+    ["<leader>cf"] = { "<cmd>Telescope changed_files<cr>", desc = "Find changed files" },
+    -- Sandwich
+    ["sa"] = { desc = "Sandwich add{motion/textobject}{addition}" },
+    ["sd"] = { desc = "Sandwich delete{deletion}" },
+    ["sr"] = { desc = "Sandwich replace{deletion}{addition}" },
+    ["ss"] = { desc = "Sandwich select" },
+    -- Zen Mode
     ["<leader>z"] = { "<cmd>ZenMode<cr>", desc = "Zen Mode" },
+    -- Hop
+    ["<leader><leader>"] = { "Hop" },
+    ["<leader><leader>hw"] = { "<cmd>HopWord<cr>", desc = "Hop word" },
+    ["<leader><leader>hl"] = { "<cmd>HopLine<cr>", desc = "Hop line" },
+    -- easymotion-like
+    ["<leader><leader>w"] = { "<cmd>HopWordAC<cr>", desc = "Hop Word after cursor" },
+    ["<leader><leader>b"] = { "<cmd>HopWordBC<cr>", desc = "Hop Word before cursor" },
+    ["<leader><leader>j"] = { "<cmd>HopLineAC<cr>", desc = "Hop Line after cursor" },
+    ["<leader><leader>k"] = { "<cmd>HopLineBC<cr>", desc = "Hop Line before cursor" },
+    -- sneak-like
+    ["s"] = { "<cmd>HopChar2AC<cr>", desc = "Hop Char2 after cursor" },
+    ["S"] = { "<cmd>HopChar2BC<cr>", desc = "Hop Char2 before cursor" },
+    ["f"] = { "<cmd>HopChar1AC<cr>", desc = "Hop Char1 after cursor" },
+    ["F"] = { "<cmd>HopChar1BC<cr>", desc = "Hop Char1 before cursor" },
+    ["fl"] = {
+      function()
+        vim.cmd [[:HopLineStart]]
+        vim.schedule(function() vim.cmd [[za]] end)
+      end,
+      desc = "Hop Line Toggle Fold line",
+    },
+    ["<leader><leader>o"] = {
+      function()
+        vim.cmd [[:HopLineStart]]
+        vim.schedule(function()
+          vim.cmd [[normal! o]]
+          vim.cmd [[normal! o]]
+          vim.cmd [[startinsert]]
+        end)
+      end,
+      desc = "Hop Line Insert new line below",
+    },
+    ["<leader><leader>O"] = {
+      function()
+        vim.cmd [[:HopLineStart]]
+        vim.schedule(function()
+          vim.cmd [[normal! O]]
+          vim.cmd [[normal! O]]
+          vim.cmd [[startinsert]]
+        end)
+      end,
+      desc = "Hop Line Insert new line above",
+    },
     ["<esc>"] = false,
   },
   t = {
-    -- setting a mapping to false will disable it
     ["<esc>"] = false,
   },
   v = {
@@ -50,5 +91,42 @@ return {
     ["K"] = { ":m '<-2<CR>gv=gv", desc = "Move line up" },
     ["<"] = { "<gv", desc = "Shift left" },
     [">"] = { ">gv", desc = "Shift right" },
+    -- Hop
+    ["<leader><leader>"] = { "Hop" },
+    ["<leader><leader>hw"] = { "<cmd>HopWord<cr>", desc = "Hop word" },
+    ["<leader><leader>hl"] = { "<cmd>HopLine<cr>", desc = "Hop line" },
+    -- easymotion-like
+    ["<leader><leader>w"] = { "<cmd>HopWordAC<cr>", desc = "Hop Word after cursor" },
+    ["<leader><leader>b"] = { "<cmd>HopWordBC<cr>", desc = "Hop Word before cursor" },
+    ["<leader><leader>j"] = { "<cmd>HopLineAC<cr>", desc = "Hop Line after cursor" },
+    ["<leader><leader>k"] = { "<cmd>HopLineBC<cr>", desc = "Hop Line before cursor" },
+    -- sneak-like
+    ["s"] = { "<cmd>HopChar2AC<cr>", desc = "Hop Char2 after cursor" },
+    ["S"] = { "<cmd>HopChar2BC<cr>", desc = "Hop Char2 before cursor" },
+    ["f"] = { "<cmd>HopChar1AC<cr>", desc = "Hop Char1 after cursor" },
+    ["F"] = { "<cmd>HopChar1BC<cr>", desc = "Hop Char1 before cursor" },
+    ["<leader><leader>o"] = {
+      function()
+        vim.cmd [[:HopLineStart]]
+        vim.schedule(function()
+          vim.cmd [[normal! o]]
+          vim.cmd [[normal! o]]
+          vim.cmd [[startinsert]]
+        end)
+      end,
+      desc = "Hop Line Insert new line below",
+    },
+    ["<leader><leader>O"] = {
+      function()
+        vim.cmd [[:HopLineStart]]
+        vim.schedule(function()
+          vim.cmd [[normal! O]]
+          vim.cmd [[normal! O]]
+          vim.cmd [[startinsert]]
+        end)
+      end,
+      desc = "Hop Line Insert new line above",
+    },
+    ["<esc>"] = false,
   },
 }
