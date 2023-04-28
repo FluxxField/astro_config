@@ -13,12 +13,6 @@ return function(client, bufnr)
     end
   end, { buffer = bufnr, desc = "Toggle diagnostics" })
 
-  if client.name == "tsserver" then
-    -- disable diagnostics for tsserver because it conflicts with eslint_d
-    vim.diagnostic.disable(nil, client.id)
-    client.server_capabilities.document_formatting = false
-  end
-
   if client.name == "eslint_d" then client.server_capabilities.document_formatting = false end
 
   if client.server_capabilities.document_formatting then

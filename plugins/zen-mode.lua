@@ -1,7 +1,7 @@
+-- https://github.com/folke/zen-mode.nvim
 return {
   "folke/zen-mode.nvim",
-  lazy = true,
   event = "BufWinEnter",
-  opts = {},
   cmd = { "ZenMode" },
+  config = function() require("zen-mode").setup() end,
 }
