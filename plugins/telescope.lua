@@ -8,6 +8,14 @@ return {
     "nvim-telescope/telescope-hop.nvim",
     "nvim-telescope/telescope-file-browser.nvim",
   },
+  config = function(...)
+    local telescope = require "telescope"
+
+    require "plugins.configs.telescope" (...)
+
+    telescope.load_extension "file_browser"
+    telescope.load_extension "hop"
+  end,
   opts = function(_, opts)
     local telescope = require "telescope"
     local actions = require "telescope.actions"
@@ -57,13 +65,5 @@ return {
         },
       },
     })
-  end,
-  config = function(...)
-    local telescope = require "telescope"
-
-    require "plugins.configs.telescope"(...)
-
-    telescope.load_extension "file_browser"
-    telescope.load_extension "hop"
   end,
 }

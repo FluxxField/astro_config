@@ -1,6 +1,7 @@
 -- https://github.com/Maan2003/lsp_lines.nvim
 return {
   "Maan2003/lsp_lines.nvim",
-  event = "User AstroFile",
-  config = function() require("lsp_lines").setup() end,
+  event = { "BufReadPre", "BufNewFile" },
+  config = function(_, opts) require("lsp_lines").setup(opts) end,
+  opts = {},
 }

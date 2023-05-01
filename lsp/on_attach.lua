@@ -12,17 +12,4 @@ return function(client, bufnr)
       diagnostics_active = true
     end
   end, { buffer = bufnr, desc = "Toggle diagnostics" })
-
-  if client.name == "eslint_d" then client.server_capabilities.document_formatting = false end
-
-  if client.server_capabilities.document_formatting then
-    vim.api.nvim_create_augroup("format_on_save", { clear = true })
-
-    vim.api.nvim_create_augroup("BufWritePre", {
-      desc = "Auto format before save",
-      event = "format_on_save",
-      pattern = { "<buffer>" },
-      callback = function() vim.lsp.buf.formatting_sync { async = true } end,
-    })
-  end
 end

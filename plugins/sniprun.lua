@@ -1,6 +1,8 @@
 -- https://github.com/michaelb/sniprun
 return {
   "michaelb/sniprun",
+  cmd = { "SnipRun" },
   build = "bash ./install.sh",
-  lazy = false,
+  config = function(_, opts) require("sniprun").setup(opts) end,
+  opts = {},
 }

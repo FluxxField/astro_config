@@ -2,5 +2,6 @@
 return {
   "echasnovski/mini.ai",
   version = "*",
-  config = function() require("mini.ai").setup() end,
+  config = function(_, opts) require("mini-ai").setup(opts) end,
+  opts = {},
 }

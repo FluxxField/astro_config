@@ -8,8 +8,8 @@ return {
     "hrsh7th/cmp-calc",
     "hrsh7th/cmp-emoji",
   },
-  config = function() require("cmp").setup() end,
   event = "InsertEnter",
+  config = function(_, opts) require("cmp").setup(opts) end,
   opts = function(_, opts)
     local cmp = require "cmp"
 
@@ -23,11 +23,11 @@ return {
       },
       sources = cmp.config.sources {
         { name = "nvim_lsp", priority = 1000 },
-        { name = "luasnip", priority = 800 },
-        { name = "emoji", priority = 700 },
-        { name = "calc", priority = 600 },
-        { name = "path", priority = 500 },
-        { name = "buffer", priority = 400 },
+        { name = "luasnip",  priority = 800 },
+        { name = "emoji",    priority = 700 },
+        { name = "calc",     priority = 600 },
+        { name = "path",     priority = 500 },
+        { name = "buffer",   priority = 400 },
       },
     })
   end,

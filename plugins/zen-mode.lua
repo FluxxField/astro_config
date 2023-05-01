@@ -3,5 +3,6 @@ return {
   "folke/zen-mode.nvim",
   event = "BufWinEnter",
   cmd = { "ZenMode" },
-  config = function() require("zen-mode").setup() end,
+  config = function(_, opts) require("zen-mode").setup(opts) end,
+  opts = {},
 }
