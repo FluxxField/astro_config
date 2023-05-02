@@ -1,13 +1,17 @@
 -- https://github.com/jose-elias-alvarez/null-ls.nvim
 return {
   "jose-elias-alvarez/null-ls.nvim",
-  config = function(_, opts)
+  opts = function(_, opts)
     local null_ls = require "null-ls"
     local formatting = null_ls.builtins.formatting
+    local diagnostics = null_ls.builtins.diagnostics
 
-    opts.default_timeout = 10000
+    opts.default_timeout = 2000
 
     opts.sources = {
+      diagnostics.codespell,
+      diagnostics.eslint_d,
+      diagnostics.tsc,
       formatting.eslint_d,
       formatting.stylelint,
       formatting.stylua,
@@ -15,20 +19,17 @@ return {
     }
 
     opts.on_attach = function(client, bufnr)
-      require("astronvim.utils.lsp").on_attach(client, bufnr)
-
       if client.server_capabilities.document_formatting then
-        local group = "format_on_save"
+        local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = true })
 
-        vim.api.nvim_create_augroup(group, { clear = true })
-
+        vim.api.nvim_clear_autocmds { group = group, buffer = bufnr }
         vim.api.nvim_create_autocmd("BufWritePre", {
           group = group,
           desc = "Auto format before save",
-          event = "fomat_on_save",
-          pattern = { "<buffer>" },
+          buffer = bufnr,
           callback = function()
             vim.lsp.buf.format {
+              bufnr = bufnr,
               timeout_ms = 1500,
               filter = function(localClient) return localClient.name ~= "tsserver" end,
             }

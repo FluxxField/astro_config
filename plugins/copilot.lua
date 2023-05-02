@@ -1,19 +1,25 @@
 -- https://github.com/zbirenbaum/copilot.lua
--- Copilot Plugin for Neovim
+-- https://github.com/zbirenbaum/copilot-cmp
 return {
   "zbirenbaum/copilot.lua",
+  dependencies = {
+    "zbirenbaum/copilot-cmp",
+    config = function(_, opts) require("copilot_cmp").setup(opts) end,
+  },
   cmd = "Copilot",
   event = "InsertEnter",
   config = function(_, opts) require("copilot").setup(opts) end,
   opts = {
     suggestion = {
-      auto_trigger = true,
-      debounce = 50,
-      keymap = {
-        accept = "<Tab>",
-        next = "<C-n>",
-        prev = "<C-p>",
-      },
+      enabled = false,
+      -- auto_trigger = true,
+      -- debounce = 50,
+      -- keymap = {
+      --   accept = "<Tab>",
+      --   next = "<C-n>",
+      --   prev = "<C-p>",
+      -- },
     },
+    panel = { enabled = false },
   },
 }
