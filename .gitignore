@@ -1,6 +1,6 @@
-# dependencies
+.husky
+.package.json
 node_modules
 package-lock.json
-
-# debug
 npm-debug.log*
+
