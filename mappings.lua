@@ -1,4 +1,8 @@
 local astro_utils = require "astronvim.utils"
+local hop = require "hop"
+local hint = require "hop.hint"
+local directions = hint.HintDirection
+local position = hint.HintPosition
 
 -- Mapping data with "desc" stored directly by vim.keymap.set().
 --
@@ -39,25 +43,54 @@ return {
     -- Zen Mode
     ["<leader>z"] = { "<cmd>ZenMode<cr>", desc = "Zen Mode" },
     -- Hop
-    ["<leader><leader>"] = { "Hop" },
-    ["<leader><leader>hw"] = { "<cmd>HopWord<cr>", desc = "Hop word" },
-    ["<leader><leader>hl"] = { "<cmd>HopLine<cr>", desc = "Hop line" },
-    -- easymotion-like
-    ["<leader><leader>w"] = { "<cmd>HopWordAC<cr>", desc = "Hop Word after cursor" },
-    ["<leader><leader>b"] = { "<cmd>HopWordBC<cr>", desc = "Hop Word before cursor" },
-    ["<leader><leader>j"] = { "<cmd>HopLineAC<cr>", desc = "Hop Line after cursor" },
-    ["<leader><leader>k"] = { "<cmd>HopLineBC<cr>", desc = "Hop Line before cursor" },
-    -- sneak-like
-    ["s"] = { "<cmd>HopChar2AC<cr>", desc = "Hop Char2 after cursor" },
-    ["S"] = { "<cmd>HopChar2BC<cr>", desc = "Hop Char2 before cursor" },
-    ["f"] = { "<cmd>HopChar1AC<cr>", desc = "Hop Char1 after cursor" },
-    ["F"] = { "<cmd>HopChar1BC<cr>", desc = "Hop Char1 before cursor" },
-    ["fl"] = {
+    ["<leader><leader>"] = { name = "Hop" },
+    ["<leader><leader>e"] = {
       function()
-        vim.cmd [[:HopLineStart]]
-        vim.schedule(function() vim.cmd [[za]] end)
+        hop.hint_words {
+          direction = directions.AFTER_CURSOR,
+          hint_position = position.END,
+          current_line_only = true,
+        }
       end,
-      desc = "Hop Line Toggle Fold line",
+      desc = "Hop end of word after cursor",
+    },
+    ["f"] = {
+      function()
+        hop.hint_char1 {
+          direction = directions.AFTER_CURSOR,
+          current_line_only = true,
+        }
+      end,
+      desc = "Hop to char after cursor current line",
+    },
+    ["F"] = {
+      function()
+        hop.hint_char1 {
+          direction = directions.BEFORE_CURSOR,
+          current_line_only = true,
+        }
+      end,
+      desc = "Hop to char before cursor current line",
+    },
+    ["t"] = {
+      function()
+        hop.hint_char1({
+          direction = directions.AFTER_CURSOR,
+          current_line_only = true,
+          hint_offset = -1,
+        })
+      end,
+      desc = "Hop to char after cursor current line offset",
+    },
+    ["T"] = {
+      function()
+        hop.hint_char1({
+          direction = directions.AFTER_CURSOR,
+          current_line_only = true,
+          hint_offset = 1,
+        })
+      end,
+      desc = "Hop to char before cursor current line offset",
     },
     ["<leader><leader>o"] = {
       function()
@@ -81,6 +114,14 @@ return {
       end,
       desc = "Hop Line Insert new line above",
     },
+    -- easymotion-like
+    ["<leader><leader>w"] = { "<cmd>HopWordAC<cr>", desc = "Hop Word after cursor" },
+    ["<leader><leader>b"] = { "<cmd>HopWordBC<cr>", desc = "Hop Word before cursor" },
+    ["<leader><leader>j"] = { "<cmd>HopLineStartAC<cr>", desc = "Hop Line after cursor" },
+    ["<leader><leader>k"] = { "<cmd>HopLineStartBC<cr>", desc = "Hop Line before cursor" },
+    -- sneak-like
+    ["s"] = { "<cmd>HopChar2AC<cr>", desc = "Hop Char2 after cursor" },
+    ["S"] = { "<cmd>HopChar2BC<cr>", desc = "Hop Char2 before cursor" },
     ["<esc>"] = false,
   },
   t = {
@@ -98,13 +139,27 @@ return {
     -- easymotion-like
     ["<leader><leader>w"] = { "<cmd>HopWordAC<cr>", desc = "Hop Word after cursor" },
     ["<leader><leader>b"] = { "<cmd>HopWordBC<cr>", desc = "Hop Word before cursor" },
-    ["<leader><leader>j"] = { "<cmd>HopLineAC<cr>", desc = "Hop Line after cursor" },
-    ["<leader><leader>k"] = { "<cmd>HopLineBC<cr>", desc = "Hop Line before cursor" },
+    ["<leader><leader>j"] = { "<cmd>HopLineStartAC<cr>", desc = "Hop Line after cursor" },
+    ["<leader><leader>k"] = { "<cmd>HopLineStartBC<cr>", desc = "Hop Line before cursor" },
     -- sneak-like
     ["s"] = { "<cmd>HopChar2AC<cr>", desc = "Hop Char2 after cursor" },
     ["S"] = { "<cmd>HopChar2BC<cr>", desc = "Hop Char2 before cursor" },
-    ["f"] = { "<cmd>HopChar1AC<cr>", desc = "Hop Char1 after cursor" },
-    ["F"] = { "<cmd>HopChar1BC<cr>", desc = "Hop Char1 before cursor" },
+    ["f"] = {
+      function()
+        hop.hint_char1 {
+          direction = directions.AFTER_CURSOR,
+          current_line_only = true,
+        }
+      end,
+    },
+    ["F"] = {
+      function()
+        hop.hint_char1 {
+          direction = directions.BEFORE_CURSOR,
+          current_line_only = true,
+        }
+      end
+    },
     ["<leader><leader>o"] = {
       function()
         vim.cmd [[:HopLineStart]]

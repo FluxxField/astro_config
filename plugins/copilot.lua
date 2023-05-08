@@ -12,13 +12,6 @@ return {
   opts = {
     suggestion = {
       enabled = false,
-      -- auto_trigger = true,
-      -- debounce = 50,
-      -- keymap = {
-      --   accept = "<Tab>",
-      --   next = "<C-n>",
-      --   prev = "<C-p>",
-      -- },
     },
     panel = { enabled = false },
   },
