@@ -1,23 +1,24 @@
 -- https://github.com/jose-elias-alvarez/null-ls.nvim
 return {
   "jose-elias-alvarez/null-ls.nvim",
-  opts = function(_, opts)
+  opts = function(_, config)
     local null_ls = require "null-ls"
     local formatting = null_ls.builtins.formatting
     local diagnostics = null_ls.builtins.diagnostics
 
+    config.default_timeout = 2000;
+
     config.sources = {
-      null_ls.builtins.code_actions.eslint_d,
-      null_ls.builtins.diagnostics.eslint_d,
-      null_ls.builtins.diagnostics.stylelint,
-      null_ls.builtins.formatting.stylua,
-      null_ls.builtins.formatting.prettierd,
-      null_ls.builtins.formatting.eslint_d,
-      null_ls.builtins.formatting.fixjson,
-      null_ls.builtins.formatting.gofmt,
+      diagnostics.codespell,
+      diagnostics.eslint_d,
+      diagnostics.tsc,
+      formatting.eslint_d,
+      formatting.stylelint,
+      formatting.stylua,
+      formatting.prettierd,
     }
 
-    opts.on_attach = function(client, bufnr)
+    config.on_attach = function(client, bufnr)
       if client.server_capabilities.document_formatting then
         local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = true })
 
@@ -37,6 +38,6 @@ return {
       end
     end
 
-    return opts
+    return config
   end,
 }
