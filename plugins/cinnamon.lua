@@ -1,6 +1,8 @@
+-- https://github.com/declancm/cinnamon.nvim
 return {
   "declancm/cinnamon.nvim",
   event = "VeryLazy",
+  config = function(_, opts) require("cinnamon").setup(opts) end,
   opts = {
     -- keymaps
     default_keymaps = true,

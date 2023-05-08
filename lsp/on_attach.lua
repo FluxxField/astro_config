@@ -1,5 +1,6 @@
 return function(client, bufnr)
   local diagnostics_active = true
+  local lsp_format_on_save = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = true })
 
   client.config.flags = { debounce_text_changes = 150 }
 
@@ -13,22 +14,17 @@ return function(client, bufnr)
     end
   end, { buffer = bufnr, desc = "Toggle diagnostics" })
 
-  if client.name == "tsserver" then
-    -- disable diagnostics for tsserver because it conflicts with eslint_d
-    vim.diagnostic.disable(nil, client.id)
-    client.server_capabilities.document_formatting = false
-  end
-
-  if client.name == "eslint_d" then client.server_capabilities.document_formatting = false end
-
-  if client.server_capabilities.document_formatting then
-    vim.api.nvim_create_augroup("format_on_save", { clear = true })
-
-    vim.api.nvim_create_augroup("BufWritePre", {
-      desc = "Auto format before save",
-      event = "format_on_save",
-      pattern = { "<buffer>" },
-      callback = function() vim.lsp.buf.formatting_sync { async = true } end,
-    })
-  end
+  vim.api.nvim_clear_autocmds { group = lsp_format_on_save, bufnr = bufnr }
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    group = lsp_format_on_save,
+    desc = "Format on save",
+    buffer = bufnr,
+    callback = function()
+      vim.lsp.buf.format {
+        bufnr = bufnr,
+        timeout_ms = 1500,
+        filter = function(localClient) return localClient.name ~= "tsserver" end,
+      }
+    end,
+  })
 end
