@@ -61,15 +61,15 @@ return {
       desc = "Hop Line Insert new line above",
     },
     -- easymotion-like
-    ["w"] = {
+    ["<leader><leader>w"] = {
       function()
         hop.hint_words {
           direction = directions.AFTER_CURSOR,
         }
       end,
-      desc = "Hop Word after cursor"
+      desc = "Hop Word after cursor",
     },
-    ["b"] = {
+    ["<leader><leader>b"] = {
       function()
         hop.hint_words {
           direction = directions.BEFORE_CURSOR,
@@ -77,7 +77,7 @@ return {
       end,
       desc = "Hop Word before cursor",
     },
-    ["jj"] = {
+    ["<leader><leader>j"] = {
       function()
         hop.hint_lines_skip_whitespace {
           direction = directions.AFTER_CURSOR,
@@ -85,7 +85,7 @@ return {
       end,
       desc = "Hop Line after cursor",
     },
-    ["kk"] = {
+    ["<leader><leader>k"] = {
       function()
         hop.hint_lines_skip_whitespace {
           direction = directions.BEFORE_CURSOR,
@@ -134,21 +134,21 @@ return {
     },
     ["t"] = {
       function()
-        hop.hint_char1({
+        hop.hint_char1 {
           direction = directions.AFTER_CURSOR,
           current_line_only = true,
           hint_offset = -1,
-        })
+        }
       end,
       desc = "Hop to char after cursor current line offset",
     },
     ["T"] = {
       function()
-        hop.hint_char1({
+        hop.hint_char1 {
           direction = directions.AFTER_CURSOR,
           current_line_only = true,
           hint_offset = 1,
-        })
+        }
       end,
       desc = "Hop to char before cursor current line offset",
     },
@@ -164,15 +164,15 @@ return {
     [">"] = { ">gv", desc = "Shift right" },
     -- Hop
     -- easymotion-like
-    ["w"] = {
+    ["<leader><leader>w"] = {
       function()
         hop.hint_words {
           direction = directions.AFTER_CURSOR,
         }
       end,
-      desc = "Hop Word after cursor"
+      desc = "Hop Word after cursor",
     },
-    ["b"] = {
+    ["<leader><leader>b"] = {
       function()
         hop.hint_words {
           direction = directions.BEFORE_CURSOR,
@@ -180,7 +180,7 @@ return {
       end,
       desc = "Hop Word before cursor",
     },
-    ["jj"] = {
+    ["<leader><leader>j"] = {
       function()
         hop.hint_lines_skip_whitespace {
           direction = directions.AFTER_CURSOR,
@@ -188,7 +188,7 @@ return {
       end,
       desc = "Hop Line after cursor",
     },
-    ["kk"] = {
+    ["<leader><leader>k"] = {
       function()
         hop.hint_lines_skip_whitespace {
           direction = directions.BEFORE_CURSOR,
@@ -237,21 +237,21 @@ return {
     },
     ["t"] = {
       function()
-        hop.hint_char1({
+        hop.hint_char1 {
           direction = directions.AFTER_CURSOR,
           current_line_only = true,
           hint_offset = -1,
-        })
+        }
       end,
       desc = "Hop to char after cursor current line offset",
     },
     ["T"] = {
       function()
-        hop.hint_char1({
+        hop.hint_char1 {
           direction = directions.AFTER_CURSOR,
           current_line_only = true,
           hint_offset = 1,
-        })
+        }
       end,
       desc = "Hop to char before cursor current line offset",
     },
