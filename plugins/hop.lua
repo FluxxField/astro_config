@@ -4,6 +4,6 @@ return {
   event = "BufRead",
   config = function(_, opts) require("hop").setup(opts) end,
   opts = {
-    keys = "ashtgyneoiqdrwbjfupzxmcvkl"
+    keys = "ashtgyneoiqdrwbjfupzxmcvkl",
   },
 }
