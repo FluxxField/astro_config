@@ -1,3 +1,7 @@
+-- https://github.com/folke/tokyonight.nvim
+-- https://github.com/rebelot/kanagawa.nvim
+-- https://github.com/akai54/2077.nvim
+-- https://github.com/thedenisnikulin/vim-cyberpunk
 return {
   {
     "folke/tokyonight.nvim",
@@ -7,16 +11,17 @@ return {
       style = "storm",
     },
   },
-  -- {
-  --   "akai54/2077.nvim",
-  --   lazy = false,
-  --   config = function(_, opts) require("2077").setup(opts) end,
-  --   opts = {},
-  -- },
-  -- {
-  --   "thedenisnikulin/vim-cyberpunk",
-  --   lazy = false,
-  --   config = function(_, opts) require("vim-cyberpunk").setup(opts) end,
-  --   opts = {},
-  -- },
+  {
+    "rebelot/kanagawa.nvim",
+    lazy = false,
+    config = function(_, opts) require("kanagawa").setup(opts) end,
+  },
+  {
+    "akai54/2077.nvim",
+    lazy = false,
+  },
+  {
+    "thedenisnikulin/vim-cyberpunk",
+    lazy = false,
+  },
 }
