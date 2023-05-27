@@ -37,6 +37,11 @@ return {
     ["ss"] = { desc = "Sandwich select" },
     -- Zen Mode
     ["<leader>z"] = { "<cmd>ZenMode<cr>", desc = "Zen Mode" },
+    -- fine-cmdline
+    [":"] = { "<cmd>FineCmdline<cr>", desc = "Fine Command line" },
+    -- portal
+    ["<leader>o"] = { '<cmd>Portal jumplist backward<cr>', desc = "Portal jump backward" },
+    ["<leader>i"] = { '<cmd>Portal jumplist forward<cr>', desc = "Portal jump forward" },
     -- Hop
     ["<leader><leader>o"] = {
       function()
