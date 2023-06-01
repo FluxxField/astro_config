@@ -1,3 +1,5 @@
+-- https://github.com/FluxxField/bionic-reading.nvim
+
 return {
   "FluxxField/bionic-reading.nvim",
   event = "BufRead",
