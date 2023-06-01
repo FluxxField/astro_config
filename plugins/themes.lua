@@ -17,6 +17,11 @@ return {
     config = function(_, opts) require("kanagawa").setup(opts) end,
   },
   {
+    "loctvl842/monokai-pro.nvim",
+    lazy = false,
+    config = function(_, opts) require("monokai-pro").setup(opts) end,
+  },
+  {
     "akai54/2077.nvim",
     lazy = false,
   },

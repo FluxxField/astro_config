@@ -1,10 +1,11 @@
 return {
-  'FluxxField/bionic-reading.nvim',
-  event = 'BufRead',
-  filetypes = { 'text' },
-  cmd = { 'BRToggle', 'BRToggleUpdateInInsert' },
+  "FluxxField/bionic-reading.nvim",
+  event = "BufRead",
+  filetypes = { "text" },
+  cmd = { "BRToggle", "BRToggleUpdateInInsert" },
   lazy = false,
-  config = function()
-    require('bionic-reading').setup()
-  end
+  -- config = function()
+  --   require('bionic-reading').setup()
+  -- end,
+  dev = true,
 }
