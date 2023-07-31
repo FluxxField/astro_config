@@ -29,4 +29,9 @@ return {
     "thedenisnikulin/vim-cyberpunk",
     lazy = false,
   },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    lazy = false,
+  }
 }

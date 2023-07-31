@@ -7,6 +7,6 @@ return {
   event = { "BufReadPre", "BufNewFile" },
   config = function(_, opts) require("mason-lspconfig").setup(opts) end,
   opts = {
-    ensure_installed = { "lua_ls", "html", "cssls", "jsonls", "tsserver" },
+    ensure_installed = { "lua_ls", "html", "cssls", "jsonls", "tsserver", "sqlls" },
   },
 }

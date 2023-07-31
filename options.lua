@@ -6,8 +6,9 @@ return {
     number = true,         -- sets vim.opt.number
     spell = false,         -- sets vim.opt.spell
     signcolumn = "auto",   -- sets vim.opt.signcolumn to auto
-    wrap = false,          -- sets vim.opt.wrap
+    wrap = true,           -- sets vim.opt.wrap
     scrolloff = 999,       -- sets vim.opt.scrolloff
+    linebreak = true,      -- sets vim.opt.linebreak
   },
   g = {
     mapleader = " ",                 -- sets vim.g.mapleader

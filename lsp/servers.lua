@@ -4,4 +4,5 @@ return {
   "html",
   "cssls",
   "jsonls",
+  "sqlls",
 }

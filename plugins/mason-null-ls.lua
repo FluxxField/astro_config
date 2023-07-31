@@ -8,6 +8,6 @@ return {
   event = { "BufReadPre", "BufNewFile" },
   config = function(_, opts) require("mason-null-ls").setup(opts) end,
   opts = {
-    ensure_installed = { "prettierd", "stylua", "eslint_d", "codespell" },
+    ensure_installed = { "prettierd", "stylua", "eslint_d", "codespell", "sqlfluff" },
   },
 }
