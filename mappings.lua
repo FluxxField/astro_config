@@ -155,6 +155,14 @@ return {
       end,
       desc = "Hop to char before cursor current line offset",
     },
+    ["<leader>gd"] = {
+      function()
+        require('detour').Detour();
+
+        vim.lsp.buf.definition()
+      end,
+      desc = "Open detour and go to global definition",
+    },
     ["<esc>"] = false,
   },
   t = {

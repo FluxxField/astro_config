@@ -2,19 +2,12 @@
 -- https://github.com/nvim-telescope/telescope-hop.nvim
 -- https://github.com/nvim-telescope/telescope-file-browser.nvim
 -- https://github.com/axkirillov/telescope-changed-files
--- https://github.com/FluxxField/telescope-highlight-tweaker.nvim
 
 return {
   "nvim-telescope/telescope.nvim",
   dependencies = {
     "nvim-telescope/telescope-hop.nvim",
     "nvim-telescope/telescope-file-browser.nvim",
-    -- "FluxxField/telescope-highlight-tweaker.nvim",
-    {
-      "FluxxField/telescope-highlight-tweaker.nvim",
-      dev = true,
-      lazy = false,
-    },
   },
   config = function(...)
     local telescope = require "telescope"
@@ -23,7 +16,6 @@ return {
 
     telescope.load_extension "file_browser"
     telescope.load_extension "hop"
-    telescope.load_extension "highlight-tweaker"
   end,
   opts = function(_, opts)
     local telescope = require "telescope"

@@ -33,5 +33,10 @@ return {
     "catppuccin/nvim",
     name = "catppuccin",
     lazy = false,
-  }
+  },
+  {
+    "navarasu/onedark.nvim",
+    name = "onedark",
+    lazy = false,
+  },
 }
