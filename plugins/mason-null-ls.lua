@@ -8,13 +8,15 @@ return {
   },
   event = { "BufReadPre", "BufNewFile" },
   config = function(...) require "plugins.configs.mason-null-ls"(...) end,
-  opts = {
-    ensure_installed = {
-      "prettierd",
-      "stylua",
-      "eslint_d",
-      "codespell",
-      "sqlfluff",
-    },
-  },
+  opts = function(_, opts)
+    return require("astronvim.utisl").extend_tbl(opts, {
+      ensure_installed = {
+        "prettierd",
+        "stylua",
+        "eslint_d",
+        "codespell",
+        "sqlfluff",
+      },
+    })
+  end,
 }

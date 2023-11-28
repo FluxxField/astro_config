@@ -7,10 +7,12 @@ return {
   },
   event = { "BufReadPre", "BufNewFile" },
   config = function(...) require "plugins.configs.mason-nvim-dap"(...) end,
-  opts = {
-    ensure_installed = {
-      "bash",
-      "js",
-    },
-  },
+  opts = function(_, opts)
+    return require("astronvim.utils").extend_tbl(opts, {
+      ensure_installed = {
+        "bash",
+        "js",
+      },
+    })
+  end,
 }
