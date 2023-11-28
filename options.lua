@@ -18,13 +18,8 @@ return {
     diagnostics_mode = 3,            -- set the visibility of diagnostics in the UI (0=off, 1=only show in status line, 2=virtual text off, 3=all on)
     icons_enabled = true,            -- disable icons in the UI (disable if no nerd font is available, requires :PackerSync after changing)
     ui_notifications_enabled = true, -- disable notifications when toggling UI elements
-    transparent_groups = vim.list_extend(vim.g.transparent_groups or {}, { "CursorLine" })
-    -- transparent_groups = vim.list_extend(
-    --   vim.g.transparent_groups or {},
-    --   vim.tbl_map(function(v)
-    --     return  v.hl_group
-    --   end, vim.tbl_values(require('bufferline.config').highlights))
-    -- )
+    transparent_groups = vim.list_extend(vim.g.transparent_groups or {}, { "CursorLine" }),
+    ["sandwich#recipes"] = vim.deepcopy(vim.g["sandwich#recipes"] or {}),
   },
 }
 -- If you need more control, you can use the function()...end notation

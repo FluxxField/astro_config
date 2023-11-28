@@ -2,6 +2,7 @@
 -- https://github.com/rebelot/kanagawa.nvim
 -- https://github.com/akai54/2077.nvim
 -- https://github.com/thedenisnikulin/vim-cyberpunk
+
 return {
   {
     "folke/tokyonight.nvim",

@@ -1,5 +1,6 @@
 -- https://github.com/zbirenbaum/copilot.lua
 -- https://github.com/zbirenbaum/copilot-cmp
+
 return {
   "zbirenbaum/copilot.lua",
   dependencies = {
@@ -8,7 +9,6 @@ return {
   },
   cmd = "Copilot",
   event = "InsertEnter",
-  config = function(_, opts) require("copilot").setup(opts) end,
   opts = {
     suggestion = {
       enabled = false,

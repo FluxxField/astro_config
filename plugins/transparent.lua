@@ -2,16 +2,17 @@
 
 return {
   "xiyaowong/transparent.nvim",
-  config = function()
+  lazy = false,
+  opts = {
+    exclude_groups = {
+      "NotifyBackground"
+    }
+  },
+  config = function(_, opts)
     local transparent = require("transparent");
 
     transparent.clear_prefix('NeoTree');
 
-    transparent.setup({
-      exclude_groups = {
-        "NotifyBackground"
-      }
-    })
+    transparent.setup(opts)
   end,
-  lazy = false,
 }
