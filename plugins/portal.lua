@@ -3,11 +3,10 @@
 -- https://gitbub.com/ThePrimeagen/harpoon.nvim
 
 return {
-  'cbochs/portal.nvim',
+  "cbochs/portal.nvim",
   dependencies = {
-    'cbochs/grapple.nvim',
-    'ThePrimeagen/harpoon',
+    "cbochs/grapple.nvim",
+    "ThePrimeagen/harpoon",
   },
-  lazy = false,
-  opts = {},
+  cmd = { "Portal jumplist backward", "Portal jumplist forward" },
 }

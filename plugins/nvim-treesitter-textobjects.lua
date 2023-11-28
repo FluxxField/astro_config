@@ -1,10 +1,10 @@
 -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 
 return {
-  'nvim-treesitter/nvim-treesitter-textobjects',
-  after = 'nvim-treesitter',
-  config = function ()
-    require('nvim-treesitter.configs').setup {
+  "nvim-treesitter/nvim-treesitter-textobjects",
+  after = "nvim-treesitter",
+  config = function()
+    require("nvim-treesitter.configs").setup {
       textobjects = {
         select = {
           enable = true,

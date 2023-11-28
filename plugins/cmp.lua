@@ -1,5 +1,5 @@
 -- https://github.com/hrsh7th/nvim-cmp
---https://github.com/hrsh7th/cmp-nvim-lsp
+-- https://github.com/hrsh7th/cmp-nvim-lsp
 -- https://github.com/hrsh7th/cmp-calc
 -- https://github.com/hrsh7th/cmp-emoji
 -- https://github.com/hrsh7th/cmp-cmdline
@@ -21,12 +21,7 @@ return {
     "hrsh7th/cmp-emoji",
     "hrsh7th/cmp-cmdline",
     "David-Kunz/cmp-npm",
-    {
-      "L3MON4D3/LuaSnip",
-      dependency = "rafamadriz/friendly-snippets",
-      build = "make install_jsregexp",
-      version = "<CurrentMajor>.*",
-    },
+    "L3MON4D3/LuaSnip",
     "saadparwaiz1/cmp_luasnip",
   },
   event = "InsertEnter",
@@ -80,14 +75,14 @@ return {
         },
       },
       sources = cmp.config.sources {
-        { name = "copilot",  priority = 1100 },
+        { name = "copilot", priority = 1100 },
         { name = "nvim_lsp", priority = 1000 },
-        { name = "luasnip",  priority = 750, option = { show_autosnippets = true } },
-        { name = "buffer",   priority = 500 },
-        { name = "path",     priority = 250 },
-        { name = "npm",      priority = 200, keyword_length = 4 },
-        { name = "calc",     priority = 150 },
-        { name = "emoji",    priority = 100 },
+        { name = "luasnip", priority = 750, option = { show_autosnippets = true } },
+        { name = "buffer", priority = 500 },
+        { name = "path", priority = 250 },
+        { name = "npm", priority = 200, keyword_length = 4 },
+        { name = "calc", priority = 150 },
+        { name = "emoji", priority = 100 },
       },
       mapping = {
         ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },

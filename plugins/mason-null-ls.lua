@@ -7,6 +7,7 @@ return {
     "jose-elias-alvarez/null-ls.nvim",
   },
   event = { "BufReadPre", "BufNewFile" },
+  config = function(...) require "plugins.configs.mason-null-ls"(...) end,
   opts = {
     ensure_installed = {
       "prettierd",
@@ -14,6 +15,6 @@ return {
       "eslint_d",
       "codespell",
       "sqlfluff",
-    }
-  }
+    },
+  },
 }

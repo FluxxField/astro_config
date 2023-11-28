@@ -6,6 +6,7 @@ return {
     "williamboman/mason.nvim",
   },
   event = { "BufReadPre", "BufNewFile" },
+  config = function(...) require "plugins.configs.mason-lspconfig"(...) end,
   opts = {
     ensure_installed = {
       "lua_ls",
@@ -14,6 +15,6 @@ return {
       "jsonls",
       "tsserver",
       "sqlls",
-    }
-  }
+    },
+  },
 }

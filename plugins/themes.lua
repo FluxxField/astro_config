@@ -6,7 +6,6 @@
 return {
   {
     "folke/tokyonight.nvim",
-    lazy = false,
     config = function(_, opts) require("tokyonight").setup(opts) end,
     opts = {
       style = "storm",
@@ -14,30 +13,26 @@ return {
   },
   {
     "rebelot/kanagawa.nvim",
-    lazy = false,
     config = function(_, opts) require("kanagawa").setup(opts) end,
+    opts = {},
   },
   {
     "loctvl842/monokai-pro.nvim",
-    lazy = false,
     config = function(_, opts) require("monokai-pro").setup(opts) end,
+    opts = {},
   },
   {
     "akai54/2077.nvim",
-    lazy = false,
   },
   {
     "thedenisnikulin/vim-cyberpunk",
-    lazy = false,
   },
   {
     "catppuccin/nvim",
     name = "catppuccin",
-    lazy = false,
   },
   {
     "navarasu/onedark.nvim",
     name = "onedark",
-    lazy = false,
   },
 }

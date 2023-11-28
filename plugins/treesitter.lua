@@ -2,7 +2,7 @@
 
 return {
   "nvim-treesitter/nvim-treesitter",
-  dependencies = { 
+  dependencies = {
     "windwp/nvim-ts-autotag",
     "JoosepAlviste/nvim-ts-context-commentstring",
     "nvim-treesitter/nvim-treesitter-textobjects",
@@ -24,6 +24,7 @@ return {
     "TSUpdateSync",
   },
   build = ":TSUpdate",
+  config = function(plugin, opts) require "plugins.configs.nvim-treesitter"(plugin, opts) end,
   opts = {
     ensure_installed = {
       "comment",
@@ -48,10 +49,7 @@ return {
       "vim",
       "vimdoc",
       "yaml",
-      "query"
+      "query",
     },
   },
-  config = function(plugin, opts)
-    require("plugins.configs.nvim-treesitter")(plugin, opts)
-  end,
 }

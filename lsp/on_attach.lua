@@ -14,17 +14,17 @@ return function(client, bufnr)
     end
   end, { buffer = bufnr, desc = "Toggle diagnostics" })
 
-  vim.api.nvim_clear_autocmds { group = lsp_format_on_save, bufnr = bufnr }
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    group = lsp_format_on_save,
-    desc = "Format on save",
-    buffer = bufnr,
-    callback = function()
-      vim.lsp.buf.format {
-        bufnr = bufnr,
-        timeout_ms = 1500,
-        filter = function(localClient) return localClient.name ~= "tsserver" end,
-      }
-    end,
-  })
+  -- vim.api.nvim_clear_autocmds { group = lsp_format_on_save, buffer = bufnr }
+  -- vim.api.nvim_create_autocmd("BufWritePre", {
+  --   group = lsp_format_on_save,
+  --   desc = "Format on save",
+  --   buffer = bufnr,
+  --   callback = function()
+  --     vim.lsp.buf.format {
+  --       bufnr = bufnr,
+  --       timeout_ms = 1500,
+  --       filter = function(localClient) return localClient.name ~= "tsserver" end,
+  --     }
+  --   end,
+  -- })
 end

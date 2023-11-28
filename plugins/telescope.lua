@@ -12,7 +12,7 @@ return {
   config = function(...)
     local telescope = require "telescope"
 
-    require "plugins.configs.telescope" (...)
+    require "plugins.configs.telescope"(...)
 
     telescope.load_extension "file_browser"
     telescope.load_extension "hop"

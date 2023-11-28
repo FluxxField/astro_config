@@ -2,13 +2,13 @@
 
 return {
   "jose-elias-alvarez/null-ls.nvim",
-  config = function ()
-    local null_ls = require "null-ls";
-    local formatting = null_ls.builtins.formatting;
-    local diagnostics = null_ls.builtins.diagnostics;
-    local code_actions = null_ls.builtins.code_actions;
+  config = function()
+    local null_ls = require "null-ls"
+    local formatting = null_ls.builtins.formatting
+    local diagnostics = null_ls.builtins.diagnostics
+    local code_actions = null_ls.builtins.code_actions
 
-    null_ls.setup({
+    null_ls.setup {
       default_timeout = 2000,
       sources = {
         -- misc
@@ -26,7 +26,7 @@ return {
         diagnostics.luacheck,
         formatting.stylua,
       },
-      on_attach = function (client, bufnr)
+      on_attach = function(client, bufnr)
         if client.server_capabilities.document_formatting then
           local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = true })
 
@@ -44,7 +44,7 @@ return {
             end,
           })
         end
-      end
-    })
+      end,
+    }
   end,
 }
