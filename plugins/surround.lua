@@ -3,7 +3,7 @@
 return {
   "kylechui/nvim-surround",
   version = "*",
-  event = "VeryLazy",
+  event = "User AstroFile",
   config = function(_, opts) require("nvim-surround").setup(opts) end,
   opts = {},
 }

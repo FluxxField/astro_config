@@ -5,7 +5,7 @@ return {
   dependencies = {
     "williamboman/mason.nvim",
   },
-  event = { "BufReadPre", "BufNewFile" },
+  cmd = { "LspInstall", "LspUninstall" },
   config = function(...) require "plugins.configs.mason-lspconfig"(...) end,
   opts = function(_, opts)
     return require("astronvim.utils").extend_tbl(opts, {

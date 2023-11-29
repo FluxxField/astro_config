@@ -6,10 +6,10 @@ return {
     "williamboman/mason.nvim",
     "jose-elias-alvarez/null-ls.nvim",
   },
-  event = { "BufReadPre", "BufNewFile" },
+  event = { "User AstroFile" },
   config = function(...) require "plugins.configs.mason-null-ls"(...) end,
   opts = function(_, opts)
-    return require("astronvim.utisl").extend_tbl(opts, {
+    return require("astronvim.utils").extend_tbl(opts, {
       ensure_installed = {
         "prettierd",
         "stylua",
