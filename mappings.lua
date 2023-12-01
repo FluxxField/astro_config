@@ -30,6 +30,15 @@ return {
       desc = "Switch Buffers",
     },
 
+    -- oil
+    ["-"] = {
+      function()
+        vim.cmd [[50vsplit]]
+        vim.cmd [[Oil]]
+      end,
+      desc = "Open parent directory",
+    },
+
     -- telescope
     ["<leader>fq"] = { "<cmd>Telescope quickfix<cr>", desc = "Find quickfix" },
     ["<leader>cf"] = { "<cmd>Telescope changed_files<cr>", desc = "Find changed files" },
