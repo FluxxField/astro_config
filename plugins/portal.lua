@@ -8,7 +8,7 @@ return {
     "cbochs/grapple.nvim",
     "ThePrimeagen/harpoon",
   },
-  cmd = { "Portal jumplist backward", "Portal jumplist forward" },
+  event = "VeryLazy",
   cond = function() return require("customize").portal end,
   config = function(_, opts) require("portal").setup(opts) end,
   opts = {},
