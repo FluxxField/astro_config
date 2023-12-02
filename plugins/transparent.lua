@@ -3,6 +3,7 @@
 return {
   "xiyaowong/transparent.nvim",
   lazy = false,
+  cond = function() return require("customize").transparent end,
   config = function(_, opts)
     local transparent = require "transparent"
 

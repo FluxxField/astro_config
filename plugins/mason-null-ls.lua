@@ -7,6 +7,7 @@ return {
     "jose-elias-alvarez/null-ls.nvim",
   },
   event = { "User AstroFile" },
+  cond = function() return require("customize").mason_null_ls end,
   config = function(...) require "plugins.configs.mason-null-ls"(...) end,
   opts = function(_, opts)
     return require("astronvim.utils").extend_tbl(opts, {

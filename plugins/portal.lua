@@ -9,4 +9,7 @@ return {
     "ThePrimeagen/harpoon",
   },
   cmd = { "Portal jumplist backward", "Portal jumplist forward" },
+  cond = function() return require("customize").portal end,
+  config = function(_, opts) require("portal").setup(opts) end,
+  opts = {},
 }

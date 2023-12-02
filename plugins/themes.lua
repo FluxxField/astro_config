@@ -6,33 +6,46 @@
 return {
   {
     "folke/tokyonight.nvim",
+    cond = function() return require("customize").tokyonight end,
     config = function(_, opts) require("tokyonight").setup(opts) end,
     opts = {
       style = "storm",
     },
+    lazy = false,
   },
   {
     "rebelot/kanagawa.nvim",
+    cond = function() return require("customize").kanagawa end,
     config = function(_, opts) require("kanagawa").setup(opts) end,
     opts = {},
+    lazy = false,
   },
   {
     "loctvl842/monokai-pro.nvim",
+    cond = function() return require("customize").monokai_pro end,
     config = function(_, opts) require("monokai-pro").setup(opts) end,
     opts = {},
+    lazy = false,
   },
   {
     "akai54/2077.nvim",
+    cond = function() return require("customize")["2077"] end,
+    lazy = false,
   },
   {
     "thedenisnikulin/vim-cyberpunk",
+    cond = function() return require("customize").vim_cyberpunk end,
+    lazy = false,
   },
   {
     "catppuccin/nvim",
+    cond = function() return require("customize").catppuccino end,
     name = "catppuccin",
+    lazy = false,
   },
   {
     "navarasu/onedark.nvim",
+    cond = function() return require("customize").onedark end,
     name = "onedark",
     lazy = false,
   },

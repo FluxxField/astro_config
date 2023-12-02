@@ -2,6 +2,7 @@
 
 return {
   "jose-elias-alvarez/null-ls.nvim",
+  cond = function() return require("customize").null_ls end,
   config = function()
     local null_ls = require "null-ls"
     local formatting = null_ls.builtins.formatting

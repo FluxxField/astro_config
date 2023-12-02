@@ -7,6 +7,7 @@ return {
   keys = {
     { "<leader>T", "<cmd>TodoTelescope<cr>", desc = "Open TODOs in Telescope" },
   },
+  cond = function() return require("customize").todo_comments end,
   config = function(_, opts) require("todo-comments").setup(opts) end,
   opts = {},
 }

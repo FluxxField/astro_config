@@ -15,16 +15,36 @@ end
 
 return {
   "hrsh7th/nvim-cmp",
+  -- NOTE: Do we need to cond these dependencies?
   dependencies = {
-    "hrsh7th/cmp-nvim-lsp",
-    "hrsh7th/cmp-calc",
-    "hrsh7th/cmp-emoji",
-    "hrsh7th/cmp-cmdline",
-    "David-Kunz/cmp-npm",
-    "L3MON4D3/LuaSnip",
-    "saadparwaiz1/cmp_luasnip",
+    {
+      "hrsh7th/cmp-nvim-lsp",
+      cond = function() return require("customize").cmp_nvim_lsp end,
+    },
+    {
+      "hrsh7th/cmp-calc",
+      cond = function() return require("customize").cmp_calc end,
+    },
+    {
+      "hrsh7th/cmp-emoji",
+      cond = function() return require("customize").cmp_emoji end,
+    },
+    {
+      "hrsh7th/cmp-cmdline",
+      cond = function() return require("customize").cmp_cmdline end,
+    },
+    {
+      "David-Kunz/cmp-npm",
+      cond = function() return require("customize").cmp_npm end,
+    },
+    { "L3MON4D3/LuaSnip" },
+    {
+      "saadparwaiz1/cmp_luasnip",
+      cond = function() return require("customize").cmp_luasnip end,
+    },
   },
   event = "InsertEnter",
+  cond = function() return require("customize").cmp end,
   config = function(_, opts)
     local cmp = require "cmp"
 

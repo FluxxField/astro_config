@@ -8,6 +8,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     "MunifTanjim/nui.nvim",
   },
+  cond = function() return require("customize").noice end,
   config = function(_, opts) require("noice").setup(opts) end,
   opts = {
     lsp = {
