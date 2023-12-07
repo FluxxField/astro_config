@@ -9,7 +9,7 @@ return {
     "ThePrimeagen/harpoon",
   },
   event = "VeryLazy",
-  cond = function() return require("customize").portal end,
+  cond = function() return require("user/customize").portal end,
   config = function(_, opts) require("portal").setup(opts) end,
   opts = {},
 }

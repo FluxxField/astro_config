@@ -9,7 +9,7 @@ return {
     "nvim-telescope/telescope-hop.nvim",
     "nvim-telescope/telescope-file-browser.nvim",
   },
-  cond = function() return require("customize").telescope end,
+  cond = function() return require("user/customize").telescope end,
   config = function(...)
     local telescope = require "telescope"
 

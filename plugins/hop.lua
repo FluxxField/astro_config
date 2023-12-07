@@ -2,7 +2,7 @@
 
 return {
   "phaazon/hop.nvim",
-  cond = function() return require("customize").hop end,
+  cond = function() return require("user/customize").hop end,
   event = "BufRead",
   config = function(_, opts) require("hop").setup(opts) end,
   opts = {

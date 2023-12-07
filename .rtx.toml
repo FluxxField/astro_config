@@ -1,0 +1,3 @@
+[tools]
+nodejs = "lts"
+node = "lts"

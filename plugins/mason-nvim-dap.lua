@@ -7,7 +7,7 @@ return {
     "nvim-dap",
   },
   cmd = { "DapInstall", "DapUninstall" },
-  cond = function() return require("customize").mason_nvim_dap end,
+  cond = function() return require("user/customize").mason_nvim_dap end,
   config = function(...) require "plugins.configs.mason-nvim-dap"(...) end,
   opts = function(_, opts)
     return require("astronvim.utils").extend_tbl(opts, {

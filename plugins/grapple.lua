@@ -4,5 +4,5 @@ return {
     "nvim-lua/plenary.nvim",
   },
   event = "VeryLazy",
-  cond = function() return require("customize").grapple end,
+  cond = function() return require("user/customize").grapple end,
 }

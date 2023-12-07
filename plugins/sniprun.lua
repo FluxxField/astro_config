@@ -4,7 +4,7 @@ return {
   "michaelb/sniprun",
   cmd = { "SnipRun", "SnipInfo", "SnipReset", "SnipClose", "SnipLive" },
   build = "bash ./install.sh",
-  cond = function() return require("customize").sniprun end,
+  cond = function() return require("user/customize").sniprun end,
   config = function(_, opts) require("sniprun").setup(opts) end,
   opts = {
     live_mode_toggle = "enable",

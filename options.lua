@@ -1,3 +1,18 @@
+-- rtx where uses .rtx.toml to find the path to the right version of node
+-- if we update node, we need to run rtx where nodejs to get the new path
+local handle = io.popen "rtx where nodejs"
+local nodejs_path = ""
+
+if handle then
+  nodejs_path = handle:read "*a"
+  handle:close()
+end
+
+-- vim.cmd [[
+--   set signcolumn=yes
+--   autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
+-- ]]
+
 -- set vim options here (vim.<first_key>.<second_key> = value)
 return {
   opt = {
@@ -9,8 +24,11 @@ return {
     wrap = true, -- sets vim.opt.wrap
     scrolloff = 999, -- sets vim.opt.scrolloff
     linebreak = true, -- sets vim.opt.linebreak
+    -- completeopt = { "menuone", "noselect", "noinsert" }, -- sets vim.opt.completeopt
+    -- shortmess = vim.opt.shortmess + { c = true },
   },
   g = {
+    copilot_node_command = nodejs_path,
     mapleader = " ", -- sets vim.g.mapleader
     autoformat_enabled = true, -- enable or disable auto formatting at start (lsp.formatting.format_on_save must be enabled)
     cmp_enabled = true, -- enable completion at start

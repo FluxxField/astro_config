@@ -6,7 +6,7 @@ return {
     "williamboman/mason.nvim",
   },
   cmd = { "LspInstall", "LspUninstall" },
-  cond = function() return require("customize").mason_lspconfig end,
+  cond = function() return require("user/customize").mason_lspconfig end,
   config = function(...) require "plugins.configs.mason-lspconfig"(...) end,
   opts = function(_, opts)
     return require("astronvim.utils").extend_tbl(opts, {

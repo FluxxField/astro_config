@@ -4,8 +4,6 @@
 -- https://github.com/hrsh7th/cmp-emoji
 -- https://github.com/hrsh7th/cmp-cmdline
 -- https://github.com/David-Kunz/cmp-npm
--- https://github.com/L3MON4D3/LuaSnip
--- https://github.com/saadparwaiz1/cmp_luasnip
 -- https://github.com/rafamadriz/friendly-snippets
 
 local function has_words_before()
@@ -15,36 +13,18 @@ end
 
 return {
   "hrsh7th/nvim-cmp",
-  -- NOTE: Do we need to cond these dependencies?
   dependencies = {
-    {
-      "hrsh7th/cmp-nvim-lsp",
-      cond = function() return require("customize").cmp_nvim_lsp end,
-    },
-    {
-      "hrsh7th/cmp-calc",
-      cond = function() return require("customize").cmp_calc end,
-    },
-    {
-      "hrsh7th/cmp-emoji",
-      cond = function() return require("customize").cmp_emoji end,
-    },
-    {
-      "hrsh7th/cmp-cmdline",
-      cond = function() return require("customize").cmp_cmdline end,
-    },
-    {
-      "David-Kunz/cmp-npm",
-      cond = function() return require("customize").cmp_npm end,
-    },
-    { "L3MON4D3/LuaSnip" },
-    {
-      "saadparwaiz1/cmp_luasnip",
-      cond = function() return require("customize").cmp_luasnip end,
-    },
+    { "hrsh7th/cmp-nvim-lsp" },
+    { "hrsh7th/cmp-nvim-lsp-signature-help" },
+    { "hrsh7th/cmp-nvim-lua" },
+    { "hrsh7th/cmp-calc" },
+    { "hrsh7th/cmp-emoji" },
+    { "hrsh7th/cmp-cmdline" },
+    { "David-Kunz/cmp-npm" },
+    { "FelipeLema/cmp-async-path" },
   },
   event = "InsertEnter",
-  cond = function() return require("customize").cmp end,
+  cond = function() return require("user/customize").cmp end,
   config = function(_, opts)
     local cmp = require "cmp"
 
@@ -72,14 +52,10 @@ return {
   end,
   opts = function(_, opts)
     local cmp = require "cmp"
-    local luasnip = require "luasnip"
     local lspkind = require "lspkind"
 
-    require("luasnip.loaders.from_vscode").lazy_load()
     return require("astronvim.utils").extend_tbl(opts, {
-      snippet = {
-        expand = function(args) require("luasnip").lsp_expand(args.body) end,
-      },
+      preselect = cmp.PreselectMode.Item,
       window = {
         completion = {
           border = "rounded",
@@ -92,17 +68,32 @@ return {
           mode = "symbol",
           max_width = 50,
           symbol_map = { Copilot = "" },
+          before = function(entry, vim_item)
+            local name = entry.source.name or ""
+
+            vim_item.menu = " (" .. name .. ")"
+
+            return vim_item
+          end,
         },
       },
       sources = cmp.config.sources {
-        { name = "copilot", priority = 1100 },
-        { name = "nvim_lsp", priority = 1000 },
-        { name = "luasnip", priority = 750, option = { show_autosnippets = true } },
-        { name = "buffer", priority = 500 },
-        { name = "path", priority = 250 },
-        { name = "npm", priority = 200, keyword_length = 4 },
-        { name = "calc", priority = 150 },
-        { name = "emoji", priority = 100 },
+        { name = "copilot" },
+        {
+          name = "nvim_lsp",
+          -- entry_filter = function() end,
+        },
+        { name = "nvim_lsp_signature_help" },
+        { name = "nvim_lua" },
+        { name = "npm" },
+        {
+          name = "async_path",
+          -- Limit path to only show in strings
+          -- entry_filter = function() end,
+        },
+        { name = "buffer", keyword_length = 3 },
+        { name = "calc" },
+        { name = "emoji" },
       },
       mapping = {
         ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
@@ -113,8 +104,6 @@ return {
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
-          elseif luasnip.expand_or_jumpable() then
-            luasnip.expand_or_jump()
           elseif has_words_before() then
             cmp.complete()
           else
@@ -124,8 +113,6 @@ return {
         ["<S-Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item()
-          elseif luasnip.jumpable(-1) then
-            luasnip.jump(-1)
           else
             fallback()
           end

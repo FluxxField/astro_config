@@ -24,7 +24,7 @@ return {
     "TSUpdateSync",
   },
   build = ":TSUpdate",
-  cond = function() return require("customize").treesitter end,
+  cond = function() return require("user/customize").nvim_treesitter end,
   config = function(plugin, opts) require "plugins.configs.nvim-treesitter"(plugin, opts) end,
   opts = function(_, opts)
     return require("astronvim.utils").extend_tbl(opts, {
@@ -50,6 +50,7 @@ return {
         "scss",
         "tsx",
         "typescript",
+        "toml",
         "vim",
         "vimdoc",
         "yaml",

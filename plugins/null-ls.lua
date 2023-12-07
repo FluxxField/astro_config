@@ -2,7 +2,7 @@
 
 return {
   "jose-elias-alvarez/null-ls.nvim",
-  cond = function() return require("customize").null_ls end,
+  cond = function() return require("user/customize").null_ls end,
   config = function()
     local null_ls = require "null-ls"
     local formatting = null_ls.builtins.formatting
@@ -24,28 +24,28 @@ return {
         diagnostics.stylelint,
         formatting.stylelint,
         -- Lua
-        diagnostics.luacheck,
+        -- diagnostics.luacheck,
         formatting.stylua,
       },
-      on_attach = function(client, bufnr)
-        if client.server_capabilities.document_formatting then
-          local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = true })
-
-          vim.api.nvim_clear_autocmds { group = group, buffer = bufnr }
-          vim.api.nvim_create_autocmd("BufWritePre", {
-            group = group,
-            desc = "Auto format before save",
-            buffer = bufnr,
-            callback = function()
-              vim.lsp.buf.format {
-                bufnr = bufnr,
-                timeout_ms = 1500,
-                filter = function(localClient) return localClient.name ~= "tsserver" end,
-              }
-            end,
-          })
-        end
-      end,
+      -- on_attach = function(client, bufnr)
+      --   if client.server_capabilities.document_formatting then
+      --     local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = true })
+      --
+      --     vim.api.nvim_clear_autocmds { group = group, buffer = bufnr }
+      --     vim.api.nvim_create_autocmd("BufWritePre", {
+      --       group = group,
+      --       desc = "Auto format before save",
+      --       buffer = bufnr,
+      --       callback = function()
+      --         vim.lsp.buf.format {
+      --           bufnr = bufnr,
+      --           timeout_ms = 1500,
+      --           filter = function(localClient) return localClient.name ~= "tsserver" end,
+      --         }
+      --       end,
+      --     })
+      --   end
+      -- end,
     }
   end,
 }

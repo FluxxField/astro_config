@@ -3,7 +3,7 @@ return {
   dependiencies = {
     "nvim-treesitter/nvim-treesitter",
   },
-  cond = function() return require("customize").bqf end,
+  cond = function() return require("user/customize").bqf end,
   config = function(_, opts) require("bqf").setup(opts) end,
   opts = {},
 }
