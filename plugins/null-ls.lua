@@ -15,7 +15,7 @@ return {
         -- misc
         diagnostics.codespell,
         -- JS/TS
-        diagnostics.eslint_d,
+        -- diagnostics.eslint_d,
         diagnostics.tsc,
         formatting.eslint_d,
         formatting.prettierd,

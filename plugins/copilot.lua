@@ -13,10 +13,5 @@ return {
   cmd = "Copilot",
   event = "InsertEnter",
   config = function(_, opts) require("copilot").setup(opts) end,
-  opts = {
-    suggestion = {
-      enabled = false,
-    },
-    panel = { enabled = false },
-  },
+  opts = {},
 }

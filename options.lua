@@ -8,11 +8,6 @@ if handle then
   handle:close()
 end
 
--- vim.cmd [[
---   set signcolumn=yes
---   autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
--- ]]
-
 -- set vim options here (vim.<first_key>.<second_key> = value)
 return {
   opt = {
@@ -24,8 +19,7 @@ return {
     wrap = true, -- sets vim.opt.wrap
     scrolloff = 999, -- sets vim.opt.scrolloff
     linebreak = true, -- sets vim.opt.linebreak
-    -- completeopt = { "menuone", "noselect", "noinsert" }, -- sets vim.opt.completeopt
-    -- shortmess = vim.opt.shortmess + { c = true },
+    completeopt = { "menu", "preview", "menuone" }, -- sets vim.opt.completeopt
   },
   g = {
     copilot_node_command = nodejs_path,
@@ -37,7 +31,6 @@ return {
     icons_enabled = true, -- disable icons in the UI (disable if no nerd font is available, requires :PackerSync after changing)
     ui_notifications_enabled = true, -- disable notifications when toggling UI elements
     transparent_groups = vim.list_extend(vim.g.transparent_groups or {}, { "CursorLine" }),
-    ["sandwich#recipes"] = vim.deepcopy(vim.g["sandwich#recipes"] or {}),
     clipboard = {
       name = "WslClipboard",
       copy = {

@@ -6,6 +6,8 @@
 -- https://github.com/David-Kunz/cmp-npm
 -- https://github.com/rafamadriz/friendly-snippets
 
+local ts_utils = require "nvim-treesitter.ts_utils"
+
 local function has_words_before()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
@@ -81,7 +83,14 @@ return {
         { name = "copilot" },
         {
           name = "nvim_lsp",
-          -- entry_filter = function() end,
+          entry_filter = function(entry, context)
+            -- local kind = entry:get_kind()
+            -- local node = ts_utils.get_node_at_cursor()
+            --
+            -- require("plenary.log").debug(kind, node)
+
+            return true
+          end,
         },
         { name = "nvim_lsp_signature_help" },
         { name = "nvim_lua" },
@@ -89,13 +98,15 @@ return {
         {
           name = "async_path",
           -- Limit path to only show in strings
-          -- entry_filter = function() end,
+          entry_filter = function(entry, context) return true end,
         },
         { name = "buffer", keyword_length = 3 },
         { name = "calc" },
         { name = "emoji" },
       },
       mapping = {
+        ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
         ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
         ["<CR>"] = cmp.mapping.confirm { select = false, behavior = cmp.ConfirmBehavior.Replace },
@@ -103,7 +114,7 @@ return {
         ["<C-Space"] = cmp.mapping.complete(),
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
-            cmp.select_next_item()
+            cmp.select_next_item { behavior = cmp.SelectBehavior.Replace }
           elseif has_words_before() then
             cmp.complete()
           else
@@ -112,7 +123,7 @@ return {
         end, { "i", "s" }),
         ["<S-Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
-            cmp.select_prev_item()
+            cmp.select_prev_item { behavior = cmp.SelectBehavior.Replace }
           else
             fallback()
           end

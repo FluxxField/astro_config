@@ -10,6 +10,7 @@ Customize = {
   cmp_emoji = true,
   cmp_cmdline = true,
   cmp_npm = true,
+  cmp_luasnip = true,
 
   -- copilot
   copilot = true,
@@ -20,10 +21,10 @@ Customize = {
 
   -- harpoon
   harpoon = true,
-
   heirline = true,
   hop = true,
   lsp_lines = true,
+  luasnip = true,
 
   -- mason
   mason_lspconfig = true,
@@ -32,7 +33,7 @@ Customize = {
 
   mini_ai = true,
   neo_tree = true,
-  noice = false,
+  noice = true,
   null_ls = true,
   nvim_treesitter = true,
   oil = true,
@@ -46,8 +47,9 @@ Customize = {
   -- rust
   rust_tools = true,
 
+  -- misc
   todo_comments = true,
-  transparent = true,
+  transparent = false,
   typescript = true,
   zen_mode = true,
 
