@@ -26,6 +26,7 @@ return {
 
     return require("astronvim.utils").extend_tbl(opts, {
       defaults = {
+        file_ignore_patterns = { "node_modules", ".git" },
         mappings = {
           i = {
             ["<C-h>"] = hop.hop,

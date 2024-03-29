@@ -61,6 +61,7 @@ Customize = {
   vim_cyberpunk = true,
   catppuccino = true,
   onedark = true,
+  gruvbox = true,
 }
 
 return Customize

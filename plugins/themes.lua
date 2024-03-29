@@ -49,4 +49,10 @@ return {
     name = "onedark",
     lazy = false,
   },
+  {
+    "ellisonleao/gruvbox.nvim",
+    cond = function() return require("user/customize").gruvbox end,
+    name = "gruvbox",
+    lazy = false,
+  },
 }
