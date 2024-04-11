@@ -33,7 +33,7 @@ Customize = {
 
   mini_ai = true,
   neo_tree = true,
-  noice = true,
+  noice = false,
   null_ls = true,
   nvim_treesitter = true,
   oil = true,
@@ -52,6 +52,8 @@ Customize = {
   transparent = false,
   typescript = true,
   zen_mode = true,
+  ibl = false,
+  bionic_reading = true,
 
   -- themes
   tokyonight = true,
