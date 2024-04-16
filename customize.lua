@@ -52,7 +52,7 @@ Customize = {
   transparent = false,
   typescript = true,
   zen_mode = true,
-  ibl = false,
+  ibl = true,
   bionic_reading = true,
 
   -- themes
@@ -64,6 +64,7 @@ Customize = {
   catppuccino = true,
   onedark = true,
   gruvbox = true,
+  eldritch = true,
 }
 
 return Customize

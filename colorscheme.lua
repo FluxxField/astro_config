@@ -1,2 +1,2 @@
 -- Set the colorscheme
-return "gruvbox"
+return "eldritch"
