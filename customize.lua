@@ -37,6 +37,7 @@ Customize = {
   neo_tree = true,
   noice = false,
   none_ls = true,
+  null_ls = true,
   nvim_treesitter = true,
   oil = true,
   portal = false,
@@ -54,6 +55,8 @@ Customize = {
   transparent = false,
   typescript = true,
   zen_mode = true,
+  ibl = true,
+  bionic_reading = true,
 
   -- themes
   tokyonight = true,
@@ -65,6 +68,7 @@ Customize = {
   onedark = true,
   gruvbox = true,
   zenburn = true,
+  eldritch = true,
 }
 
 return Customize

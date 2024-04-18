@@ -61,4 +61,10 @@ return {
     name = "zenburn",
     lazy = false,
   },
+  {
+    "eldritch-theme/eldritch.nvim",
+    cond = function() return require("user/customize").eldritch end,
+    name = "eldritch",
+    lazy = false,
+  },
 }
