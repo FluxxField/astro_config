@@ -17,12 +17,14 @@ Customize = {
   copilot_cmp = true,
 
   detour = true,
+  flit = true,
   grapple = true,
 
   -- harpoon
   harpoon = true,
   heirline = true,
   hop = true,
+  leap = true,
   lsp_lines = true,
   luasnip = true,
 
@@ -33,11 +35,11 @@ Customize = {
 
   mini_ai = true,
   neo_tree = true,
-  noice = true,
-  null_ls = true,
+  noice = false,
+  none_ls = true,
   nvim_treesitter = true,
   oil = true,
-  portal = true,
+  portal = false,
   sniprun = true,
   nvim_surround = true,
 
@@ -62,6 +64,7 @@ Customize = {
   catppuccino = true,
   onedark = true,
   gruvbox = true,
+  zenburn = true,
 }
 
 return Customize

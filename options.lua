@@ -1,6 +1,6 @@
 -- rtx where uses .rtx.toml to find the path to the right version of node
 -- if we update node, we need to run rtx where nodejs to get the new path
-local handle = io.popen "rtx where nodejs"
+local handle = io.popen "mise where nodejs"
 local nodejs_path = ""
 
 if handle then
@@ -10,6 +10,9 @@ end
 
 -- set vim options here (vim.<first_key>.<second_key> = value)
 return {
+  env = {
+    PATH = vim.env.HOME .. "/.local/share/mise/shims:" .. vim.env.PATH,
+  },
   opt = {
     -- set to true or false etc.
     relativenumber = true, -- sets vim.opt.relativenumber
@@ -19,7 +22,7 @@ return {
     wrap = true, -- sets vim.opt.wrap
     scrolloff = 999, -- sets vim.opt.scrolloff
     linebreak = true, -- sets vim.opt.linebreak
-    completeopt = { "menu", "preview", "menuone" }, -- sets vim.opt.completeopt
+    completeopt = { "menu", "menuone", "preview", "noinsert" }, -- sets vim.opt.completeopt
   },
   g = {
     copilot_node_command = nodejs_path,

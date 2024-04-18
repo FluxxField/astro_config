@@ -4,23 +4,27 @@ return {
   "jay-babu/mason-null-ls.nvim",
   dependencies = {
     "williamboman/mason.nvim",
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim",
   },
   event = { "User AstroFile" },
   cond = function() return require("user/customize").mason_null_ls end,
   config = function(...) require "plugins.configs.mason-null-ls"(...) end,
   opts = function(_, opts)
+    local null_ls = require "null-ls"
+    local formatting = null_ls.builtins.formatting
+    local diagnostics = null_ls.builtins.diagnostics
+
     return require("astronvim.utils").extend_tbl(opts, {
       ensure_installed = {
         "prettierd",
         "stylua",
         "eslint_d",
-        "codespell",
-        "sqlfluff",
+        -- "codespell",
+        -- "sqlfluff",
       },
       handlers = {
         prettierd = function()
-          require("null-ls").register(require("null-ls").builtins.formatting.prettierd.with {
+          null_ls.register(formatting.prettierd.with {
             condition = function(utils)
               return utils.root_has_file "package.json"
                 or utils.root_has_file ".prettierrc"
@@ -33,7 +37,7 @@ return {
           })
         end,
         eslint_d = function()
-          require("null-ls").register(require("null-ls").builtins.diagnostics.eslint_d.with {
+          null_ls.register(diagnostics.eslint_d.with {
             condition = function(utils)
               return utils.root_has_file "package.json"
                 or utils.root_has_file ".eslintrc"

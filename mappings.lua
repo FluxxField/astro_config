@@ -104,7 +104,7 @@ return {
     },
     ["<leader><leader>j"] = {
       function()
-        hop.hint_lines {
+        hop.hint_lines_skip_whitespace {
           direction = directions.AFTER_CURSOR,
         }
       end,
@@ -112,7 +112,7 @@ return {
     },
     ["<leader><leader>k"] = {
       function()
-        hop.hint_lines {
+        hop.hint_lines_skip_whitespace {
           direction = directions.BEFORE_CURSOR,
         }
       end,
@@ -175,7 +175,7 @@ return {
     },
     ["<leader><leader>j"] = {
       function()
-        hop.hint_lines {
+        hop.hint_lines_skip_whitespace {
           direction = directions.AFTER_CURSOR,
         }
       end,
@@ -183,7 +183,7 @@ return {
     },
     ["<leader><leader>k"] = {
       function()
-        hop.hint_lines {
+        hop.hint_lines_skip_whitespace {
           direction = directions.BEFORE_CURSOR,
         }
       end,

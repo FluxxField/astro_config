@@ -55,4 +55,10 @@ return {
     name = "gruvbox",
     lazy = false,
   },
+  {
+    "phha/zenburn.nvim",
+    cond = function() return require("user/customize").zenburn end,
+    name = "zenburn",
+    lazy = false,
+  },
 }

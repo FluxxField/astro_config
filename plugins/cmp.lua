@@ -57,6 +57,14 @@ return {
     local lspkind = require "lspkind"
 
     return require("astronvim.utils").extend_tbl(opts, {
+      completion = {
+        completeopt = table.concat(vim.opt.completeopt:get(), ","),
+        autocomplete = {
+          cmp.TriggerEvent.TextChanged,
+          cmp.TriggerEvent.InsertEnter,
+        },
+        keyword_length = 0,
+      },
       preselect = cmp.PreselectMode.Item,
       window = {
         completion = {
@@ -83,14 +91,14 @@ return {
         { name = "copilot" },
         {
           name = "nvim_lsp",
-          entry_filter = function(entry, context)
-            -- local kind = entry:get_kind()
-            -- local node = ts_utils.get_node_at_cursor()
-            --
-            -- require("plenary.log").debug(kind, node)
-
-            return true
-          end,
+          -- entry_filter = function(entry, context)
+          --   local kind = entry:get_kind()
+          --   local node = ts_utils.get_node_at_cursor()
+          --
+          --   require("plenary.log").debug(kind, node)
+          --
+          --   return true
+          -- end,
         },
         { name = "nvim_lsp_signature_help" },
         { name = "nvim_lua" },
@@ -98,7 +106,7 @@ return {
         {
           name = "async_path",
           -- Limit path to only show in strings
-          entry_filter = function(entry, context) return true end,
+          -- entry_filter = function(entry, context) return true end,
         },
         { name = "buffer", keyword_length = 3 },
         { name = "calc" },
