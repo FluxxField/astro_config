@@ -69,6 +69,7 @@ Customize = {
   gruvbox = true,
   zenburn = true,
   eldritch = true,
+  cyberdream = true,
 }
 
 return Customize

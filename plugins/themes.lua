@@ -67,4 +67,21 @@ return {
     name = "eldritch",
     lazy = false,
   },
+  {
+    "scottmckendry/cyberdream.nvim",
+    cond = function() return require("user/customize").cyberdream end,
+    name = "cyberdream",
+    lazy = false,
+    config = function()
+      require("cyberdream").setup {
+        transparent = true,
+        italic_comments = true,
+        hide_fillchars = true,
+        borderless_telescope = true,
+        terminal_colors = true,
+      }
+
+      vim.cmd "colorscheme cyberdream"
+    end,
+  },
 }
