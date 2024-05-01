@@ -6,6 +6,8 @@
 -- https://github.com/David-Kunz/cmp-npm
 -- https://github.com/rafamadriz/friendly-snippets
 
+local log = require("plenary.log").new { plugin = "cmp", level = "debug" }
+
 local ts_utils = require "nvim-treesitter.ts_utils"
 
 local function has_words_before()
@@ -73,15 +75,26 @@ return {
           side_padding = 0,
         },
       },
+      sorting = {
+        comparators = {
+          cmp.config.compare.exact,
+          cmp.config.compare.recently_used,
+        },
+      },
       formatting = {
         format = lspkind.cmp_format {
           mode = "symbol",
           max_width = 50,
           symbol_map = { Copilot = "" },
           before = function(entry, vim_item)
-            local name = entry.source.name or ""
+            local kind = vim_item.kind or "" -- Class, Method, Variable, etc...
+            vim_item.kind = kind
 
-            vim_item.menu = " (" .. name .. ")"
+            local cmp_source = entry.source.name or "" -- nvim_lsp, copilot, buffer, etc...
+            vim_item.menu = "[" .. cmp_source .. "]"
+
+            -- local item = entry:get_completion_item()
+            -- if item and item.detail then vim_item.menu = item.detail end
 
             return vim_item
           end,
@@ -105,7 +118,7 @@ return {
         { name = "npm" },
         {
           name = "async_path",
-          -- Limit path to only show in strings
+          -- TODO: Limit path to only show in strings
           -- entry_filter = function(entry, context) return true end,
         },
         { name = "buffer", keyword_length = 3 },
