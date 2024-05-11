@@ -17,6 +17,7 @@ return {
 
     telescope.load_extension "file_browser"
     telescope.load_extension "hop"
+    telescope.load_extension "fzf"
   end,
   opts = function(_, opts)
     local telescope = require "telescope"
@@ -26,7 +27,7 @@ return {
 
     return require("astronvim.utils").extend_tbl(opts, {
       defaults = {
-        file_ignore_patterns = { "node_modules", ".git" },
+        -- file_ignore_patterns = { "node_modules", ".git" },
         mappings = {
           i = {
             ["<C-h>"] = hop.hop,
@@ -39,6 +40,12 @@ return {
           },
         },
         extensions = {
+          fzf = {
+            fuzzy = false,
+            override_generic_sorter = true,
+            override_file_sorter = true,
+            case_mode = "smart_case",
+          },
           file_browser = {
             mappings = {
               i = {
@@ -52,7 +59,7 @@ return {
         },
         pickers = {
           find_files = {
-            hidden = true,
+            -- hidden = true,
           },
           buffers = {
             path_display = { "smart" },

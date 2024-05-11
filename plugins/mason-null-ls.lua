@@ -4,7 +4,7 @@ return {
   "jay-babu/mason-null-ls.nvim",
   dependencies = {
     "williamboman/mason.nvim",
-    "nvimtools/none-ls.nvim",
+    "jose-elias-alvarez/null-ls.nvim",
   },
   event = { "User AstroFile" },
   cond = function() return require("user/customize").mason_null_ls end,
