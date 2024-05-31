@@ -84,4 +84,10 @@ return {
       vim.cmd "colorscheme cyberdream"
     end,
   },
+  {
+    "diegoulloao/neofusion.nvim",
+    cond = function() return require("user/customize").neofusion end,
+    name = "neofusion",
+    lazy = false,
+  },
 }

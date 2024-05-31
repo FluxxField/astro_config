@@ -66,6 +66,7 @@ Customize = {
   zenburn = true,
   eldritch = true,
   cyberdream = true,
+  neofusion = true,
 }
 
 return Customize
