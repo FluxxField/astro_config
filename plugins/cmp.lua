@@ -108,9 +108,11 @@ return {
           --   local kind = entry:get_kind()
           --   local node = ts_utils.get_node_at_cursor()
           --
-          --   require("plenary.log").debug(kind, node)
+          --   if node and node:type() == "arguments" then
+          --     if kind == 6 then return true end
+          --   end
           --
-          --   return true
+          --   return false
           -- end,
         },
         { name = "nvim_lsp_signature_help" },

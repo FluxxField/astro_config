@@ -35,7 +35,7 @@ Customize = {
 
   mini_ai = true,
   neo_tree = true,
-  noice = false,
+  noice = true,
   none_ls = true,
   null_ls = true,
   nvim_treesitter = true,
