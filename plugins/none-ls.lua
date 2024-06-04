@@ -3,8 +3,8 @@
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 return {
-  "nvimtools/none-ls.nvim",
-  cond = function() return require("user/customize").none_ls end,
+  "jose-elias-alvarez/null-ls.nvim",
+  cond = function() return require("user/customize").null_ls end,
   config = function()
     local null_ls = require "null-ls"
     local formatting = null_ls.builtins.formatting
@@ -40,7 +40,7 @@ return {
               vim.lsp.buf.format {
                 bufnr = bufnr,
                 async = false,
-                filter = function(localClient) return localClient.name ~= "tsserver" end,
+                -- filter = function(localClient) return localClient.name ~= "tsserver" end,
               }
             end,
           })

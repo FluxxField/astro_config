@@ -16,15 +16,7 @@ Customize = {
   copilot = true,
   copilot_cmp = true,
 
-  detour = true,
-  flit = true,
-  grapple = true,
-
-  -- harpoon
-  harpoon = true,
   heirline = true,
-  hop = true,
-  leap = true,
   lsp_lines = true,
   luasnip = true,
 
@@ -40,7 +32,6 @@ Customize = {
   null_ls = true,
   nvim_treesitter = true,
   oil = true,
-  portal = false,
   sniprun = true,
   nvim_surround = true,
 
@@ -49,6 +40,11 @@ Customize = {
 
   -- rust
   rust_tools = true,
+
+  -- navigation
+  flash = true,
+  grapple = true,
+  harpoon = true,
 
   -- misc
   todo_comments = true,
@@ -70,6 +66,7 @@ Customize = {
   zenburn = true,
   eldritch = true,
   cyberdream = true,
+  neofusion = true,
 }
 
 return Customize

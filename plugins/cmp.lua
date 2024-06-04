@@ -60,14 +60,14 @@ return {
 
     return require("astronvim.utils").extend_tbl(opts, {
       completion = {
-        completeopt = table.concat(vim.opt.completeopt:get(), ","),
+        completeopt = table.concat(vim.opt.completeopt:get(), ""),
         autocomplete = {
           cmp.TriggerEvent.TextChanged,
           cmp.TriggerEvent.InsertEnter,
         },
         keyword_length = 0,
       },
-      preselect = cmp.PreselectMode.Item,
+      preselect = cmp.PreselectMode.None,
       window = {
         completion = {
           border = "rounded",
@@ -123,7 +123,7 @@ return {
           -- TODO: Limit path to only show in strings
           -- entry_filter = function(entry, context) return true end,
         },
-        { name = "buffer", keyword_length = 3 },
+        -- { name = "buffer", keyword_length = 3 },
         { name = "calc" },
         { name = "emoji" },
       },
