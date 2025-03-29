@@ -54,23 +54,32 @@ return {
             local ok, vtsls = pcall(require, "vtsls")
             if not ok then return end
 
-            vtsls.commands.add_missing_imports(
-              args.buf,
-              function() end,
-              function(err) vim.notify("[vtsls] add_missing_imports failed: " .. tostring(err), vim.log.levels.ERROR) end
-            )
+            local bufnr = args.buf
+            local pending = 2
+            local errored = false
 
-            vtsls.commands.remove_unused_imports(
-              args.buf,
-              function() end,
-              function(err) vim.notify("[vtsls] remove_unused_imports failed: " .. tostring(err), vim.log.levels.ERROR) end
-            )
+            -- Prevent this autocmd from re-running on manual save
+            vim.api.nvim_clear_autocmds { event = "BufWritePre", buffer = bufnr }
 
-            -- vtsls.commands.remove_unused(
-            --   args.buf,
-            --   function() end,
-            --   function(err) vim.notify("[vtsls] remove_unused failed: " .. tostring(err), vim.log.levels.ERROR) end
-            -- )
+            function on_resolve()
+              pending = pending - 1
+
+              if pending == 0 and not errored then vim.cmd "noautocmd write" end
+            end
+
+            function on_error(err)
+              errored = true
+              vim.notify("[vtsls] command failed: " .. tostring(err), vim.log.levels.ERROR)
+            end
+
+            vtsls.commands.add_missing_imports(bufnr, on_resolve, on_error)
+            vtsls.commands.remove_unused_imports(bufnr, on_resolve, on_error)
+            -- vtsls.commands.remove_unused(bufnr, on_resolve, on_error)
+
+            -- Block the write by doing nothing and returning early
+            vim.schedule(function()
+              -- no-op to defer and prevent original write
+            end)
           end,
         },
       },
