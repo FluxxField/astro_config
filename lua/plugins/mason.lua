@@ -21,6 +21,7 @@ return {
         "taplo",
         "vtsls",
         "oxlint",
+        "biome",
 
         -- install formatters
         "stylua",

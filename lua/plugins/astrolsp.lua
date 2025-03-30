@@ -1,3 +1,22 @@
+local function has_biome_config(root_dir)
+  local util = require "lspconfig.util"
+
+  return util.path.exists(util.path.join(root_dir, "biome.json"))
+end
+
+local function conditional_setup(server_name)
+  return function(server, opts)
+    local util = require "lspconfig.util"
+
+    local root_dir = opts.root_dir
+      or util.root_pattern("biome.json", "eslint.config.js", "package.json", ".git")(vim.fn.getcwd())
+
+    if has_biome_config(root_dir) then return end
+
+    require("lspconfig")[server].setup(opts)
+  end
+end
+
 -- AstroLSP allows you to customize the features in AstroNvim's LSP configuration engine
 -- Configuration documentation can be found with `:h astrolsp`
 
@@ -29,6 +48,8 @@ return {
         "lua_ls",
         "tsserver",
         "eslint",
+        "eslint_d",
+        "prettierd",
       },
       timeout_ms = 1000, -- default format timeout
       -- filter = function(client) -- fully override the default formatting function
@@ -38,7 +59,7 @@ return {
     -- enable servers that you already have installed without mason
     servers = {
       lua_ls = {},
-      tsserver = {},
+      -- tsserver = {}, -- using vtsls instead
       rust_analyzer = {},
       tailwindcss = {},
       cssls = {},
@@ -49,8 +70,9 @@ return {
       taplo = {},
       sqlls = {},
       vtsls = {},
-      eslint_d = {},
-      oxlint = {},
+      -- eslint_d = {},
+      -- oxlint = {},
+      biome = {},
     },
     -- customize language server configuration options passed to `lspconfig`
     ---@diagnostic disable: missing-fields
@@ -67,8 +89,10 @@ return {
     },
     -- customize how language servers are attached
     handlers = {
-      tsserver = false,
-      eslint = false,
+      tsserver = false, -- using vtsls instead
+      biome = function(server, opts) require("lspconfig")[server].setup(opts) end,
+      eslint = conditional_setup "eslint",
+      eslint_d = conditional_setup "eslint_d",
       -- a function without a key is simply the default handler, functions take two parameters, the server name and the configured options table for that server
       -- function(server, opts) require("lspconfig")[server].setup(opts) end
 

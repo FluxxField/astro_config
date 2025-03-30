@@ -1,3 +1,8 @@
+local function use_if_biome_not_present(utils, files)
+  if utils.root_has_file { "biome.json" } then return false end
+  return utils.root_has_file(files)
+end
+
 ---@type LazySpec
 return {
   "nvimtools/none-ls.nvim",
@@ -40,9 +45,12 @@ return {
 
       -- Web/React/TS
       formatting.rustywind,
-      formatting.prettierd,
+      formatting.prettierd.with {
+        condition = function(utils) return use_if_biome_not_present(utils, { ".prettierrc" }) end,
+      },
       require("none-ls.diagnostics.eslint_d").with {
         diagnostics_format = "[#{c}] #{m} (#{s})",
+        condition = function(utils) return use_if_biome_not_present(utils, { "eslint.config.js" }) end,
         filter = function(d)
           local ignored_codes = {
             ["prettier/prettier"] = true,
@@ -58,7 +66,9 @@ return {
           return not ignored_codes[code]
         end,
       },
-      require "none-ls.formatting.eslint_d",
+      require("none-ls.formatting.eslint_d").with {
+        condition = function(utils) return use_if_biome_not_present(utils, { "eslint.config.js" }) end,
+      },
 
       -- CSS/SCSS
       diagnostics.stylelint,
