@@ -86,6 +86,13 @@ return {
           },
         },
       },
+      vtsls = {
+        settings = {
+          typescript = {
+            tsconfigPath = "tsconfig.lint.json",
+          },
+        },
+      },
     },
     -- customize how language servers are attached
     handlers = {
