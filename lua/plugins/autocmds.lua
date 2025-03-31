@@ -4,6 +4,14 @@ return {
   ---@type AstroLSPOpts
   opts = {
     autocmds = {
+      zellij_on_leave = {
+        {
+          event = "VimLeave",
+          desc "Ensure Zellij returns to normal mode on exit",
+          callback = function() os.execute "zellij action switch-mode normal" end,
+        },
+      },
+
       lsp_hover_lines = {
         cond = function(client) return client.supports_method "textDocument/publishDiagnostics" end,
         {
