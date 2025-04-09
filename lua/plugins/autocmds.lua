@@ -7,7 +7,7 @@ return {
       zellij_on_leave = {
         {
           event = "VimLeave",
-          desc "Ensure Zellij returns to normal mode on exit",
+          desc = "Ensure Zellij returns to normal mode on exit",
           callback = function() os.execute "zellij action switch-mode normal" end,
         },
       },

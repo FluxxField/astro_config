@@ -5,9 +5,9 @@ return {
   ---@type SmartMotion.Config
   opts = {
     presets = {
-      words = true,
-      lines = true,
-      search = true,
+      -- words = true,
+      -- lines = true,
+      -- search = true,
     },
   },
 }
