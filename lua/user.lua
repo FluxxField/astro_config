@@ -63,8 +63,8 @@ M.wrap_next = function()
     print "Unable to find JSX tag name"
     return
   end
-  local tag_name = get_node_text(tag_name_node)
 
+  local tag_name = get_node_text(tag_name_node)
   local total_children = count_jsx_children(parent)
 
   local parent_open, parent_close
