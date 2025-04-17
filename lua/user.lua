@@ -54,9 +54,6 @@ M.wrap_next = function()
     return
   end
 
-  vim.notify("parent range: " .. tostring(parent:range()))
-
-  -- Find opening and closing tags for current
   local open_tag, closing_tag
   for child in current:iter_children() do
     if child:type() == "jsx_opening_element" then
@@ -71,12 +68,10 @@ M.wrap_next = function()
     print "Unable to find JSX tag name"
     return
   end
-  local tag_name = get_node_text(tag_name_node)
 
-  -- Count how many jsx_element children are in the parent
+  local tag_name = get_node_text(tag_name_node)
   local total_children = count_jsx_children(parent)
 
-  -- Find parent tags
   local parent_open, parent_close
   for child in parent:iter_children() do
     if child:type() == "jsx_opening_element" then
@@ -91,47 +86,82 @@ M.wrap_next = function()
     return
   end
 
-  -- Only insert tags if not already in the correct place
-  local insert_open = true
-  local insert_close = true
-  local parent_open_row = parent_open:end_()
-  local parent_close_row = parent_close:start()
-
-  if open_tag and open_tag:start() == parent_open_row + 1 then insert_open = false end
-  if closing_tag and closing_tag:end_() == parent_close_row - 1 then insert_close = false end
-
-  -- Special case: if current is only child, we always wrap the parent
   local force_wrap = total_children == 1
-  insert_open = insert_open or force_wrap
-  insert_close = insert_close or force_wrap
 
-  -- Save line numbers before removal
-  local open_row = open_tag and open_tag:range()
-  local close_row = closing_tag and closing_tag:range()
+  if force_wrap then
+    --- FORCE WRAP FLOW ---
+    local open_row = open_tag and open_tag:range()
+    local close_row = closing_tag and closing_tag:range()
 
-  -- Remove opening tag and trim line immediately
-  if insert_open and open_tag and open_row then
-    remove_node(open_tag)
-    local line = api.nvim_buf_get_lines(0, open_row, open_row + 1, false)[1] or ""
-    if vim.trim(line) == "" then
-      api.nvim_buf_set_lines(0, open_row, open_row + 1, false, {})
-      if close_row then close_row = close_row - 1 end
+    -- Remove opening tag and trim line
+    if open_tag and open_row then
+      remove_node(open_tag)
+      local line = api.nvim_buf_get_lines(0, open_row, open_row + 1, false)[1] or ""
+      if vim.trim(line) == "" then
+        api.nvim_buf_set_lines(0, open_row, open_row + 1, false, {})
+        if close_row then close_row = close_row - 1 end
+      end
     end
-  end
 
-  -- Remove closing tag and trim line
-  if insert_close and closing_tag and close_row then
-    remove_node(closing_tag)
-    local line = api.nvim_buf_get_lines(0, close_row, close_row + 1, false)[1] or ""
-    if vim.trim(line) == "" then api.nvim_buf_set_lines(0, close_row, close_row + 1, false, {}) end
-  end
+    -- Remove closing tag and trim line
+    if closing_tag and close_row then
+      remove_node(closing_tag)
+      local line = api.nvim_buf_get_lines(0, close_row, close_row + 1, false)[1] or ""
+      if vim.trim(line) == "" then api.nvim_buf_set_lines(0, close_row, close_row + 1, false, {}) end
+    end
 
-  -- Insert new wrapper tags (in reverse order so line numbers stay stable)
-  if insert_close then
-    api.nvim_buf_set_lines(0, parent_close_row, parent_close_row, false, { "</" .. tag_name .. ">" })
-  end
-  if insert_open then
-    api.nvim_buf_set_lines(0, parent_open_row + 1, parent_open_row + 1, false, { "<" .. tag_name .. ">" })
+    local parent_open_row = parent_open:end_()
+    local parent_close_row = parent_close:start()
+    local indent = string.rep(" ", vim.fn.indent(parent_open_row))
+    local child_indent = string.rep(" ", vim.fn.shiftwidth() + vim.fn.indent(parent_open_row))
+
+    api.nvim_buf_set_lines(0, parent_close_row, parent_close_row, false, { indent .. "</" .. tag_name .. ">" })
+    api.nvim_buf_set_lines(0, parent_open_row + 1, parent_open_row + 1, false, { indent .. "<" .. tag_name .. ">" })
+
+    -- Re-indent inner block one level deeper
+    for i = parent_open_row + 2, parent_close_row do
+      local line = api.nvim_buf_get_lines(0, i, i + 1, false)[1]
+      if line and line:match "%S" then
+        api.nvim_buf_set_lines(0, i, i + 1, false, { child_indent .. vim.trim(line) })
+      end
+    end
+  else
+    --- NORMAL WRAP FLOW ---
+    local parent_open_row = parent_open:end_()
+    local parent_close_row = parent_close:start()
+
+    local insert_open = true
+    local insert_close = true
+
+    if open_tag and open_tag:start() == parent_open:end_() + 1 then insert_open = false end
+    if closing_tag and closing_tag:end_() == parent_close:start() - 1 then insert_close = false end
+
+    local open_row = open_tag and open_tag:range()
+    local close_row = closing_tag and closing_tag:range()
+
+    if insert_open and open_tag and open_row then
+      remove_node(open_tag)
+      local line = api.nvim_buf_get_lines(0, open_row, open_row + 1, false)[1] or ""
+      if vim.trim(line) == "" then
+        api.nvim_buf_set_lines(0, open_row, open_row + 1, false, {})
+        if close_row then close_row = close_row - 1 end
+      end
+    end
+
+    if insert_close and closing_tag and close_row then
+      remove_node(closing_tag)
+      local line = api.nvim_buf_get_lines(0, close_row, close_row + 1, false)[1] or ""
+      if vim.trim(line) == "" then api.nvim_buf_set_lines(0, close_row, close_row + 1, false, {}) end
+    end
+
+    local indent = string.rep(" ", vim.fn.indent(parent_open_row))
+
+    if insert_close then
+      api.nvim_buf_set_lines(0, parent_close_row, parent_close_row, false, { indent .. "</" .. tag_name .. ">" })
+    end
+    if insert_open then
+      api.nvim_buf_set_lines(0, parent_open_row + 1, parent_open_row + 1, false, { indent .. "<" .. tag_name .. ">" })
+    end
   end
 end
 
