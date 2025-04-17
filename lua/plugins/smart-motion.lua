@@ -2,6 +2,6 @@
 return {
   "FluxxField/smart-motion.nvim",
   dir = "~/github/smart-motion.nvim",
-  ---@type SmartMotion.Config
+  ---@type SmartMotion.SetupOpts
   opts = {},
 }
