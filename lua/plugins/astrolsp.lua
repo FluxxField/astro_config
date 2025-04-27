@@ -35,7 +35,7 @@ return {
     formatting = {
       -- control auto formatting on save
       format_on_save = {
-        enabled = true, -- enable or disable format on save globally
+        enabled = false, -- enable or disable format on save globally
         allow_filetypes = { -- enable format on save for specified filetypes only
           -- "go",
         },
@@ -50,6 +50,10 @@ return {
         "eslint",
         "eslint_d",
         "prettierd",
+        "gopls",
+        "vtsls",
+        "rust_analyzer",
+        "biome",
       },
       timeout_ms = 1000, -- default format timeout
       -- filter = function(client) -- fully override the default formatting function
@@ -57,23 +61,7 @@ return {
       -- end
     },
     -- enable servers that you already have installed without mason
-    servers = {
-      lua_ls = {},
-      -- tsserver = {}, -- using vtsls instead
-      rust_analyzer = {},
-      tailwindcss = {},
-      cssls = {},
-      html = {},
-      jsonls = {},
-      emmet_ls = {},
-      gopls = {},
-      taplo = {},
-      sqlls = {},
-      vtsls = {},
-      -- eslint_d = {},
-      -- oxlint = {},
-      biome = {},
-    },
+    servers = {},
     -- customize language server configuration options passed to `lspconfig`
     ---@diagnostic disable: missing-fields
     config = {
