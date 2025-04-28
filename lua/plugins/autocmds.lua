@@ -68,42 +68,52 @@ return {
         cond = function(client, bufnr)
           local ft = vim.bo[bufnr].filetype
 
-          return client.name == "vtsls"
+          return vim.tbl_contains({ "vtsls" }, client.name)
             and vim.tbl_contains({ "typescript", "typescriptreact", "javascript", "javascriptreact" }, ft)
         end,
         {
           event = "BufWritePre",
-          desc = "Auto-run VTSLS source actions after saving",
+          desc = "Auto-run VTSLS source actions for imports before write",
           callback = function(args)
-            local ok, vtsls = pcall(require, "vtsls")
-            if not ok then return end
-
             local bufnr = args.buf
-            local pending = 2
-            local errored = false
+            local clients = vim.lsp.get_clients { bufnr = bufnr }
 
-            -- Prevent this autocmd from re-running on manual save
+            local has_vtsls = false
+
+            for _, client in ipairs(clients) do
+              if client.name == "vtsls" then has_vtsls = true end
+            end
+
+            -- prevent a retrigger
             vim.api.nvim_clear_autocmds { event = "BufWritePre", buffer = bufnr }
 
-            function on_resolve()
-              pending = pending - 1
+            local pending = 0
+            local errored = false
 
+            local function on_resolve()
+              pending = pending - 1
               if pending == 0 and not errored then vim.cmd "noautocmd write" end
             end
 
-            function on_error(err)
+            local function on_error(err)
               errored = true
-              vim.notify("[vtsls] command failed: " .. tostring(err), vim.log.levels.ERROR)
+              vim.notify("[react_on_save] action failed: " .. tostring(err), vim.log.levels.ERROR)
             end
 
-            vtsls.commands.add_missing_imports(bufnr, on_resolve, on_error)
-            vtsls.commands.remove_unused_imports(bufnr, on_resolve, on_error)
-            -- vtsls.commands.remove_unused(bufnr, on_resolve, on_error)
+            -- VTSLS
+            if has_vtsls then
+              local ok, vtsls = pcall(require, "vtsls")
 
-            -- Block the write by doing nothing and returning early
-            vim.schedule(function()
-              -- no-op to defer and prevent original write
-            end)
+              if ok then
+                pending = pending + 2
+
+                vtsls.commands.add_missing_imports(bufnr, on_resolve, on_error)
+                vtsls.commands.remove_unused_imports(bufnr, on_resolve, on_error)
+              end
+            end
+
+            -- Block write
+            vim.schedule(function() end)
           end,
         },
       },
