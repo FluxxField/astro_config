@@ -1,22 +1,3 @@
-local function has_biome_config(root_dir)
-  local util = require "lspconfig.util"
-
-  return util.path.exists(util.path.join(root_dir, "biome.json"))
-end
-
-local function conditional_setup(server_name)
-  return function(server, opts)
-    local util = require "lspconfig.util"
-
-    local root_dir = opts.root_dir
-      or util.root_pattern("biome.json", "eslint.config.js", "package.json", ".git")(vim.fn.getcwd())
-
-    if has_biome_config(root_dir) then return end
-
-    require("lspconfig")[server].setup(opts)
-  end
-end
-
 -- AstroLSP allows you to customize the features in AstroNvim's LSP configuration engine
 -- Configuration documentation can be found with `:h astrolsp`
 
@@ -45,15 +26,6 @@ return {
       },
       disabled = { -- disable formatting capabilities for the listed language servers
         -- disable lua_ls formatting capability if you want to use StyLua to format your lua code
-        "lua_ls",
-        "tsserver",
-        "eslint",
-        "eslint_d",
-        "prettierd",
-        "gopls",
-        "vtsls",
-        "rust_analyzer",
-        "biome",
       },
       timeout_ms = 1000, -- default format timeout
       -- filter = function(client) -- fully override the default formatting function
@@ -86,8 +58,6 @@ return {
     handlers = {
       tsserver = false, -- using vtsls instead
       biome = function(server, opts) require("lspconfig")[server].setup(opts) end,
-      eslint = conditional_setup "eslint",
-      eslint_d = conditional_setup "eslint_d",
       -- a function without a key is simply the default handler, functions take two parameters, the server name and the configured options table for that server
       -- function(server, opts) require("lspconfig")[server].setup(opts) end
 

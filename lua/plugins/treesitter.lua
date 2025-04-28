@@ -1,3 +1,21 @@
+local languages = require "consts.language-packs"
+
+local function collect_treesitter_languages()
+  local ts_langs = {}
+  local seen = {}
+
+  for _, lang in pairs(languages) do
+    for _, ts in ipairs(lang.treesitter or {}) do
+      if not seen[ts] then
+        table.insert(ts_langs, ts)
+        seen[ts] = true
+      end
+    end
+  end
+
+  return ts_langs
+end
+
 ---@type LazySpec
 return {
   "nvim-treesitter/nvim-treesitter",
@@ -8,48 +26,7 @@ return {
   },
   opts = {
     auto_install = true,
-    ensure_installed = {
-      -- Core languages
-      "lua",
-      "vim",
-      "vimdoc",
-      "bash",
-      "markdown",
-      "markdown_inline",
-      -- Web Development
-      "html",
-      "css",
-      "scss",
-      "jsdoc",
-      "javascript",
-      "typescript",
-      "tsx",
-      "json",
-      "json5",
-      "yaml",
-      "toml",
-      "graphql",
-      "http",
-      -- Config/dotfile formats
-      "ini",
-      "dockerfile",
-      "git_config",
-      "gitignore",
-      "gitattributes",
-      "gitcommit",
-      -- Programming Languages
-      "rust",
-      "go",
-      "gomod",
-      "gowork",
-      "gosum",
-      -- SQL & Databases
-      "sql",
-      -- Other formats
-      "kdl",
-      "regex",
-      "query",
-    },
+    ensure_installed = collect_treesitter_languages(),
     textobjects = {
       select = {
         enable = true,

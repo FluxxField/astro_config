@@ -13,6 +13,8 @@ end
 local function has_exec(bin) return vim.fn.executable(bin) == 1 end
 
 local enabled = {
+  ["FluxxField/bionic-reading.nvim"] = true,
+  ["saghen/blink.cmp"] = true,
   ["stevearc/conform.nvim"] = true,
   ["rebelot/kanagawa.nvim"] = true,
   ["lsp_lines.nvim"] = true,

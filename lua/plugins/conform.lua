@@ -1,3 +1,15 @@
+local languages = require "consts.language-packs"
+
+local function build_formatters_by_ft()
+  local formatters_by_ft = {}
+
+  for filetype, lang in pairs(languages) do
+    if lang.formatters then formatters_by_ft[filetype] = lang.formatters end
+  end
+
+  return formatters_by_ft
+end
+
 ---@type LazySpec
 return {
   "stevearc/conform.nvim",
@@ -10,14 +22,6 @@ return {
       timeout_ms = 1000,
       lsp_fallback = false, -- Let conform fully handle it
     },
-    formatters_by_ft = {
-      javascript = { "biome-organize-imports", "biome" },
-      javascriptreact = { "biome-organize-imports", "biome" },
-      typescript = { "biome-organize-imports", "biome" },
-      typescriptreact = { "biome-organize-imports", "biome" },
-      go = { "goimports", "gofmt" },
-      rust = { "rustfmt" },
-      lua = { "stylua" },
-    },
+    formatters_by_ft = build_formatters_by_ft(),
   },
 }

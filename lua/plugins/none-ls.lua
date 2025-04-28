@@ -1,8 +1,3 @@
-local function use_if_biome_not_present(utils, files)
-  if utils.root_has_file { "biome.json" } then return false end
-  return utils.root_has_file(files)
-end
-
 ---@type LazySpec
 return {
   "nvimtools/none-ls.nvim",
@@ -13,7 +8,6 @@ return {
     -- opts variable is the default configuration table for the setup function call
     local null_ls = require "null-ls"
     local diagnostics = null_ls.builtins.diagnostics
-    local formatting = null_ls.builtins.formatting
     local completion = null_ls.builtins.completion
 
     -- Check supported formatters and linters
@@ -32,55 +26,10 @@ return {
           "typescriptreact",
         },
       },
-      diagnostics.proselint.with {
-        disabled_filetypes = {
-          "javascript",
-          "javascriptreact",
-          "typescript",
-          "typescriptreact",
-        },
-      },
       diagnostics.codespell,
-      formatting.cbfmt,
-
-      -- Web/React/TS
-      formatting.rustywind,
-      formatting.prettierd.with {
-        condition = function(utils) return use_if_biome_not_present(utils, { ".prettierrc" }) end,
-      },
-      require("none-ls.diagnostics.eslint_d").with {
-        diagnostics_format = "[#{c}] #{m} (#{s})",
-        condition = function(utils) return use_if_biome_not_present(utils, { "eslint.config.js" }) end,
-        filter = function(d)
-          local ignored_codes = {
-            ["prettier/prettier"] = true,
-            ["no-mixed-spaces-and-tabs"] = true,
-            ["no-trailing-spaces"] = true,
-            ["eol-last"] = true,
-            ["semi"] = true,
-            ["quotes"] = true,
-            ["comma-dangle"] = true,
-          }
-
-          local code = tostring(d.code)
-          return not ignored_codes[code]
-        end,
-      },
-      require("none-ls.formatting.eslint_d").with {
-        condition = function(utils) return use_if_biome_not_present(utils, { "eslint.config.js" }) end,
-      },
-
-      -- CSS/SCSS
       diagnostics.stylelint,
-
-      -- Lua
-      formatting.stylua,
-
-      -- Git
       diagnostics.gitlint,
       diagnostics.commitlint,
-
-      -- Better Completion
       completion.spell,
       completion.tags,
     })
