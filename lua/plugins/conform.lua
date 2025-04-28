@@ -1,4 +1,4 @@
-local languages = require "consts.language-packs"
+local languages = require "consts.language_packs"
 
 local function build_formatters_by_ft()
   local formatters_by_ft = {}

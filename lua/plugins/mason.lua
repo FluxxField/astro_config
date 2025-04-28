@@ -1,4 +1,4 @@
-local languages = require "consts.language-packs"
+local languages = require "consts.language_packs"
 
 local function collect_mason_packages()
   local mason_pkgs = {}

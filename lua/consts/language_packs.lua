@@ -100,7 +100,7 @@ M.go = {
   mason = { "gopls", "gomodifytags", "gotests", "iferr", "impl" },
   servers = { "gopls" },
   formatters = { "goimports", "gofmt" },
-  treesitter = { "go", "gomod", "gosum", "goword" },
+  treesitter = { "go", "gomod", "gosum" },
 }
 
 ---@type LanguageObject

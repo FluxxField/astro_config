@@ -1,7 +1,7 @@
 ---@type LazySpec
 return {
   "FluxxField/bionic-reading.nvim",
-  lazy = false,
+  event = { "BufReadPost" },
   dir = "~/github/bionic-reading.nvim",
   opts = {},
 }
