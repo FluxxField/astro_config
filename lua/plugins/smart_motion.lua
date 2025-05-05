@@ -6,6 +6,7 @@ return {
   ---@module 'smart-motion.nvim'
   ---@type SmartMotionConfig
   opts = {
+    use_background_highlights = false,
     presets = {
       words = true,
       lines = true,
