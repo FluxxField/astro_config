@@ -14,6 +14,7 @@ return {
       delete = true,
       yank = true,
       change = true,
+      misc = true,
     },
   },
 }
