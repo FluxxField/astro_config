@@ -60,23 +60,23 @@ M.javascript = {
   mason = { "vtsls", "biome", "html-lsp" },
   servers = { "vtsls", "html" },
   linters = { "oxlint", "biome" },
-  formatters = { "biome" },
+  formatters = { "biome", "biome-organize-imports" },
   treesitter = { "javascript", "typescript", "tsx", "html", "jsdoc" },
 }
 
 ---@type LanguageObject
 M.javascriptreact = {
-  formatters = { "biome" },
+  formatters = { "biome", "biome-organize-imports" },
 }
 
 ---@type LanguageObject
 M.typescript = {
-  formatters = { "biome" },
+  formatters = { "biome", "biome-organize-imports" },
 }
 
 ---@type LanguageObject
 M.typescriptreact = {
-  formatters = { "biome" },
+  formatters = { "biome", "biome-organize-imports" },
 }
 
 ---@type LanguageObject
