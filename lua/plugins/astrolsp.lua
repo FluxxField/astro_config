@@ -56,6 +56,7 @@ return {
     },
     -- customize how language servers are attached
     handlers = {
+      eslint = false,
       tsserver = false, -- using vtsls instead
       biome = function(server, opts) require("lspconfig")[server].setup(opts) end,
       -- a function without a key is simply the default handler, functions take two parameters, the server name and the configured options table for that server
