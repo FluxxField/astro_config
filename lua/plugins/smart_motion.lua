@@ -7,6 +7,7 @@ return {
   ---@type SmartMotionConfig
   opts = {
     use_background_highlights = false,
+    auto_select_target = true,
     presets = {
       words = true,
       lines = true,

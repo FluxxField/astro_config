@@ -19,7 +19,7 @@ return {
   ---@type conform.setupOpts
   opts = {
     format_on_save = {
-      timeout_ms = 1000,
+      timeout_ms = 500,
       lsp_fallback = false, -- Let conform fully handle it
     },
     formatters_by_ft = build_formatters_by_ft(),
