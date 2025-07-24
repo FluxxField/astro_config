@@ -75,50 +75,50 @@ return {
           event = "BufWritePre",
           desc = "Auto-run VTSLS source actions for imports before write",
           callback = function(args)
-            -- local bufnr = args.buf
-            -- local clients = vim.lsp.get_clients { bufnr = bufnr }
-            --
-            -- local has_vtsls = false
-            --
-            -- for _, client in ipairs(clients) do
-            --   if client.name == "vtsls" then has_vtsls = true end
-            -- end
-            --
-            -- -- prevent a retrigger
-            -- vim.api.nvim_clear_autocmds { event = "BufWritePre", buffer = bufnr }
-            --
-            -- local pending = 0
-            -- local errored = false
-            --
-            -- local function on_resolve()
-            --   pending = pending - 1
-            --   if pending == 0 and not errored then vim.cmd "noautocmd write" end
-            -- end
-            --
-            -- local function on_error(err)
-            --   errored = true
-            --   vim.notify("[react_on_save] action failed: " .. tostring(err), vim.log.levels.ERROR)
-            -- end
-            --
-            -- -- VTSLS
-            -- if has_vtsls then
-            --   local ok, vtsls = pcall(require, "vtsls")
-            --
-            --   if ok and type(bufnr) == "number" then
-            --     pending = pending + 2
-            --
-            --     local success, err = pcall(vtsls.commands.add_missing_imports, bufnr, on_resolve, on_error)
-            --     if not success then vim.notify("add_missing_imports error: " .. tostring(err), vim.log.levels.ERROR) end
-            --
-            --     success, err = pcall(vtsls.commands.remove_unused_imports, bufnr, on_resolve, on_error)
-            --     if not success then
-            --       vim.notify("remove_unused_imports error: " .. tostring(err), vim.log.levels.ERROR)
-            --     end
-            --   end
-            -- end
-            --
-            -- -- Block write
-            -- vim.schedule(function() end)
+            local bufnr = args.buf
+            local clients = vim.lsp.get_clients { bufnr = bufnr }
+
+            local has_vtsls = false
+
+            for _, client in ipairs(clients) do
+              if client.name == "vtsls" then has_vtsls = true end
+            end
+
+            -- prevent a retrigger
+            vim.api.nvim_clear_autocmds { event = "BufWritePre", buffer = bufnr }
+
+            local pending = 0
+            local errored = false
+
+            local function on_resolve()
+              pending = pending - 1
+              if pending == 0 and not errored then vim.cmd "noautocmd write" end
+            end
+
+            local function on_error(err)
+              errored = true
+              vim.notify("[react_on_save] action failed: " .. tostring(err), vim.log.levels.ERROR)
+            end
+
+            -- VTSLS
+            if has_vtsls then
+              local ok, vtsls = pcall(require, "vtsls")
+
+              if ok and type(bufnr) == "number" then
+                pending = pending + 2
+
+                local success, err = pcall(vtsls.commands.add_missing_imports, bufnr, on_resolve, on_error)
+                if not success then vim.notify("add_missing_imports error: " .. tostring(err), vim.log.levels.ERROR) end
+
+                success, err = pcall(vtsls.commands.remove_unused_imports, bufnr, on_resolve, on_error)
+                if not success then
+                  vim.notify("remove_unused_imports error: " .. tostring(err), vim.log.levels.ERROR)
+                end
+              end
+            end
+
+            -- Block write
+            vim.schedule(function() end)
           end,
         },
       },
