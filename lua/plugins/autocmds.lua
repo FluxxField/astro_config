@@ -63,6 +63,7 @@ return {
           callback = function() pcall(vim.cmd, "TailwindSort") end,
         },
       },
+
       react_on_save = {
         cond = function(client, bufnr)
           local ft = vim.bo[bufnr].filetype
